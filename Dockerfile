@@ -18,8 +18,8 @@ FROM ${RENKU_BASE_IMAGE}
 # USER ${NB_USER}
 
 # install the R dependencies
-COPY install.R /tmp/
-RUN R -f /tmp/install.R
+#COPY install.R /tmp/
+#RUN R -f /tmp/install.R
 
 # install the python dependencies
 COPY requirements.txt environment.yml /tmp/
