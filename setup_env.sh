@@ -28,7 +28,7 @@ cd ~/virtenvs
 
 source ~/virtenvs/omb/bin/activate 
 
-## dependencies; here without pinning the version
+## dependencies
 
 pip3 install omnibenchmark==0.0.41
 pip3 install renku==1.10.0

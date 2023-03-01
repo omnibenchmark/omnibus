@@ -4,7 +4,7 @@
 # Author: Søren Helweg Dam
 # Adapted from Izaskun Mallona
 
-while getopts ":r:gu:ge:token:" opt; do
+while getopts ":r:gu:ge:token:ptitle:mkey:template_id:template_source:template_ref:" opt; do
   case $opt in
     r) REPONAME="$OPTARG"
     ;;
@@ -13,6 +13,16 @@ while getopts ":r:gu:ge:token:" opt; do
 	ge) USEREMAIL="$OPTARG"
     ;;
     token) token="$OPTARG"
+    ;;
+    mkey) KEYWORD="$OPTARG"
+    ;;
+    ptitle) TITLE="$OPTARG"
+    ;;
+    template_id) TEMID="$OPTARG"
+    ;;
+    template_source) TEMSOURCE="$OPTARG"
+    ;;
+    template_ref) TEMREF="$OPTARG"
     ;;
     \?) echo "Invalid option -$OPTARG" >&2
     ;;
@@ -44,18 +54,18 @@ git remote set-url origin https://renkulab.io/gitlab/"$GLUSERNAME"/"$REPONAME".g
 ## renkufy the repo using an omnibenchmark (dataset) template ###########################
 ##   will ask interactively to fill other params (press enter and/or fill them)
 
-renku init  --template-source https://github.com/ansonrel/contributed-project-templates \
-      --template-ref main \
-      --template-id omni-data-py \
-      --parameter "dataset_keyword"="this_is_an_api_test" \
-      --parameter "project_title"="This is an API test"
+renku init  --template-source $TEMSOURCE \
+      --template-ref $TEMREF \
+      --template-id $TEMID \
+      --parameter "metric_keyword"=$KEYWORD \
+      --parameter "project_title"=$TITLE
 
 ## the command above already committed changes
 git log
 
 ## so push to remote to trigger a docker image generation via CI/CD
 ##   be aware of your `mastercopy` branch, is it named `master` or `main`?
-git push #--set-upstream origin master
+git push --set-upstream origin main
 
 echo "CI/CD job https://renkulab.io/gitlab/${GLUSERNAME}/${REPONAME}/-/jobs , please wait till completed"
 

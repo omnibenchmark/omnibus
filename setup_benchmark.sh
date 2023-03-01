@@ -1,16 +1,49 @@
 #!/bin/bash
-
+#
+# Template for setting up a full benchmark
+# Author: Søren Helweg Dam
 
 # Setup virtual environment
-source setup_env.sh
+# source setup_env.sh
 
+while getopts ":c:" opt; do
+  case $opt in
+    c) CONFIG="$OPTARG"
+    ;;
+    o) ORCHESTRATOR="$OPTARG"
+    ;;
+    \?) echo "Invalid option -$OPTARG" >&2
+    ;;
+  esac
+done
 
-REPONAMES=["dataset_1", "dataset_2", ]
-GLUSERNAME="random.person"
-USEREMAIL="random.person@mls.uzh.ch"
-## A token with `api` scope at renkulab.io's gitlab
-##    (Grants complete read/write access to the API, including all groups and projects,
-##     the container registry, and the package registry.)
-token="glpat-PDrx1bjCWvblablablablablabla"                 ## replace me with a real token
+# Load configuration settings
+source $CONFIG
 
+ORCHESTRATOR=${ORCHESTRATOR:-true}
 
+# Build orchestrator
+if [[ $ORCHESTRATOR = true ]]; then
+	./create_repo.sh -r "orchestrator" \
+		-gu $GLUSERNAME \
+		-ge $USEREMAIL \
+		-token $token \
+		-template_id "orchestrator" \
+		-template_source $TEMSOURCE \
+		-template_ref "dev" \
+		-mkey "orchestrator" \
+		-ptitle $PTITLE
+fi
+
+for (( i = 0; i <${#REPONAMES[@]}; i++ )); do
+	#statements
+	./create_repo.sh -r ${#REPONAMES[$i]} \
+	-gu $GLUSERNAME \
+	-ge $USEREMAIL \
+	-token $token \
+	-template_id ${#TEMPLATES[$i]} \
+	-template_source $TEMSOURCE \
+	-template_ref $TEMREF \
+	-mkey ${#KEYWORDS[$i]} \
+	-ptitle $PTITLE
+done
