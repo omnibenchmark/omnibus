@@ -42,9 +42,11 @@ if [[ $ORCHESTRATOR = true ]]; then
 fi
 
 for (( i = 0; i <${#REPONAMES[@]}; i++ )); do
+	echo $i; echo ${REPONAMES[$i]}
+done
 	#statements
 	./create_repo.sh \
-		-r ${#REPONAMES[$i]} \
+		-r ${REPONAMES[$i]} \
 		-bm $BENCHMARK \
 		-ns $NAMESPACE_ID \
 		-d $DIR \
@@ -53,9 +55,9 @@ for (( i = 0; i <${#REPONAMES[@]}; i++ )); do
 		-v $VISIBILITY \
 		-g $GROUPNAME \
 		-token $token \
-		-template_id ${#TEMPLATES[$i]} \
+		-template_id ${TEMPLATES[$i]} \
 		-template_source $TEMSOURCE \
 		-template_ref $TEMREF \
-		-mkey ${#KEYWORDS[$i]} \
+		-mkey ${KEYWORDS[$i]} \
 		-ptitle $PTITLE
 done
