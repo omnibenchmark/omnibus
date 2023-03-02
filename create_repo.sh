@@ -4,43 +4,78 @@
 # Author: Søren Helweg Dam
 # Adapted from Izaskun Mallona
 
-while getopts ":bm:d:g:ns:r:v:gu:ge:token:ptitle:mkey:template_id:template_source:template_ref:" opt; do
-  case $opt in
-    r) REPONAME="$OPTARG"
-    ;;
-    d) DIR="$OPTARG"
-    ;;
-    bm) BENCHMARK="$OPTARG"
-    ;;
-    ns) NAMESPACE_ID="$OPTARG"
-    ;;
-    g) GROUPNAME="$OPTARG"
-    ;;
-    v) VISIBILITY="$OPTARG"
-    ;;
-    gu) GLUSERNAME="$OPTARG"
-    ;;
-    ge) USEREMAIL="$OPTARG"
-    ;;
-    token) token="$OPTARG"
-    ;;
-    mkey) KEYWORD="$OPTARG"
-    ;;
-    ptitle) TITLE="$OPTARG"
-    ;;
-    template_id) TEMID="$OPTARG"
-    ;;
-    template_source) TEMSOURCE="$OPTARG"
-    ;;
-    template_ref) TEMREF="$OPTARG"
-    ;;
-    \?) echo "Invalid option -$OPTARG" >&2
-    ;;
-  esac
+while [ "$1" != "" ]; do
+    case $1 in
+        -r)           shift
+                               REPONAME="$1"
+                               ;;
+        -bm)       shift
+                               BENCHMARK=$1
+                               ;;
+        -d)       shift
+                               DIR=$1
+                               ;;
+        -ns)       shift
+                               NAMESPACE_ID=$1
+                               ;;
+        -gu)       shift
+                               GLUSERNAME=$1
+                               ;;
+        -ge)       shift
+                               USEREMAIL=$1
+                               ;;
+        -v)       shift
+                               VISIBILITY=$1
+                               ;;
+        -g)       shift
+                               GROUPNAME=$1
+                               ;;
+        -token)       shift
+                               token=$1
+                               ;;
+        -template_id)       shift
+                               TEMID=$1
+                               ;;
+        -template_source)       shift
+                               TEMSOURCE=$1
+                               ;;
+        -template_ref)       shift
+                               TEMREF=$1
+                               ;;
+        -mkey)       shift
+                               KEYWORD=$1
+                               ;;
+        -ptitle)       shift
+                               TITLE=$1
+                               ;;
+        -h | --help )          usage
+                               exit
+                               ;;
+        * )                    usage
+                               exit 1
+    esac
+    shift
 done
+
 
 #Namespace=$(echo "${NAMESPACE}/${REPONAME}" | tr '[:upper:]' '[:lower:]')
 #NAME_SPACE="${NAMESPACE} / ${REPONAME}"
+echo "Setting up repo with the following settings:"
+echo "${BENCHMARK}"
+echo "${NAMESPACE_ID}"
+echo "${DIR}"
+echo "${GROUPNAME}"
+echo "${REPONAME}"
+echo "${TEMID}"
+echo "${VISIBILITY}"
+echo "${GLUSERNAME}"
+echo "${USEREMAIL}"
+echo "${KEYWORD}"
+echo "${TITLE}"
+echo "${TEMSOURCE}"
+echo "${TEMREF}"
+
+
 
 # Edit working directory
 WD=$(pwd)
@@ -51,7 +86,7 @@ if [[ $DIR != false ]]; then
 fi
 
 # Edit group
-GROUPID=${GROUPID:-false}
+NAMESPACE_ID=${NAMESPACE_ID:-false}
 GROUPNAME=${GROUPNAME:-false}
 
 
@@ -59,7 +94,7 @@ GROUPNAME=${GROUPNAME:-false}
 ## creating a (public) repo via API ######################################################
 
 if [[ $NAMESPACE_ID = false ]]; then
-    NAMESPACE=$GLUSERNAME
+    NAMESPACE="$GLUSERNAME"
     curl --header "Authorization: Bearer ${token}" \
          --request POST \
          "https://renkulab.io/gitlab/api/v4/projects/?name=${REPONAME}&visibility=${VISIBILITY}"
@@ -104,7 +139,7 @@ renku init  --template-source "${TEMSOURCE}" \
 
 
 ## the command above already committed changes
-git log
+# git log
 
 ## so push to remote to trigger a docker image generation via CI/CD
 ##   be aware of your `mastercopy` branch, is it named `master` or `main`?
