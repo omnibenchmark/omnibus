@@ -19,8 +19,8 @@ while getopts ":bm:d:g:ns:r:v:gu:ge:token:ptitle:mkey:template_id:template_sourc
     v) VISIBILITY="$OPTARG"
     ;;
     gu) GLUSERNAME="$OPTARG"
-	;;
-	ge) USEREMAIL="$OPTARG"
+    ;;
+    ge) USEREMAIL="$OPTARG"
     ;;
     token) token="$OPTARG"
     ;;
@@ -71,13 +71,14 @@ else
          "https://renkulab.io/gitlab/api/v4/projects/?name=${REPONAME}&namespace_id=${NAMESPACE_ID}&visibility=${VISIBILITY}"
 fi
 
+
 ## cloning the new (empty) repo in ~/omb  ################################################
 
 #mkdir -p ~/omb
 #cd $_
 
 
-git clone https://oauth2:"$token"@renkulab.io/gitlab/"$NAMESPACE"/"$REPONAME".git
+git clone https://oauth2:"$token"@renkulab.io/gitlab/"${NAMESPACE}"/"${REPONAME}".git
 
 cd "$REPONAME"
 
@@ -89,13 +90,13 @@ git switch -c main
 ## renkufy the repo using an omnibenchmark (dataset) template ###########################
 ##   will ask interactively to fill other params (press enter and/or fill them)
 
-renku init  --template-source $TEMSOURCE \
-      --template-ref $TEMREF \
-      --template-id $TEMID \
-      --parameter "metric_keyword"=$KEYWORD \
-      --parameter "project_title"=$TITLE \
+renku init  --template-source "${TEMSOURCE}" \
+      --template-ref "${TEMREF}" \
+      --template-id "${TEMID}" \
+      --parameter "metric_keyword"="$KEYWORD}" \
+      --parameter "project_title"="${TITLE}" \
       --parameter "dataset_keyword"="${BENCHMARK}_${REPONAME}" \
-      --parameter "sanitized_name"=${BENCHMARK} \
+      --parameter "sanitized_name"="${BENCHMARK}" \
       --parameter "metadata_description"="Metadata Description" \
       --parameter "study_link"="" \
       --parameter "study_note"="" \
