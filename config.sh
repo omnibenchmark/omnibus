@@ -3,6 +3,7 @@
 
 
 BENCHMARK="Benchmark_name"
+NAMESPACE="namespace"
 REPONAMES=("dataset_1" "dataset_2")
 TEMPLATES=("omni-data-py" "omni-data-py")
 GLUSERNAME="random.person"

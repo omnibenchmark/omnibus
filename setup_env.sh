@@ -22,7 +22,7 @@ make install prefix=~/soft/python/Python-3.9.2
 
 cd ~/virtenvs
 
-~/soft/python3/Python-3.9.2/bin/virtualenv omb
+~/soft/python/Python-3.9.2/bin/virtualenv omb
 
 ## activate virtenv  #####################################################################
 

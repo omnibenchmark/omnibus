@@ -24,7 +24,10 @@ ORCHESTRATOR=${ORCHESTRATOR:-true}
 
 # Build orchestrator
 if [[ $ORCHESTRATOR = true ]]; then
-	./create_repo.sh -r "orchestrator" \
+	./create_repo.sh \
+		-r "orchestrator" \
+		-bm $BENCHMARK \
+		-ns $NAMESPACE \
 		-gu $GLUSERNAME \
 		-ge $USEREMAIL \
 		-token $token \
@@ -37,13 +40,16 @@ fi
 
 for (( i = 0; i <${#REPONAMES[@]}; i++ )); do
 	#statements
-	./create_repo.sh -r ${#REPONAMES[$i]} \
-	-gu $GLUSERNAME \
-	-ge $USEREMAIL \
-	-token $token \
-	-template_id ${#TEMPLATES[$i]} \
-	-template_source $TEMSOURCE \
-	-template_ref $TEMREF \
-	-mkey ${#KEYWORDS[$i]} \
-	-ptitle $PTITLE
+	./create_repo.sh \
+		-r ${#REPONAMES[$i]} \
+		-bm $BENCHMARK \
+		-ns $NAMESPACE \
+		-gu $GLUSERNAME \
+		-ge $USEREMAIL \
+		-token $token \
+		-template_id ${#TEMPLATES[$i]} \
+		-template_source $TEMSOURCE \
+		-template_ref $TEMREF \
+		-mkey ${#KEYWORDS[$i]} \
+		-ptitle $PTITLE
 done
