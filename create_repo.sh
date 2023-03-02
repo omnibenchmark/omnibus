@@ -43,7 +43,7 @@ done
 #NAME_SPACE="${NAMESPACE} / ${REPONAME}"
 
 # Edit working directory
-WD=pwd
+WD=$(pwd)
 DIR=${DIR:-false}
 if [[ $DIR != false ]]; then
     mkdir -p $DIR
