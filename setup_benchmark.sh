@@ -27,9 +27,12 @@ if [[ $ORCHESTRATOR = true ]]; then
 	./create_repo.sh \
 		-r "orchestrator" \
 		-bm $BENCHMARK \
-		-ns $NAMESPACE \
+		-d $DIR \
+		-ns $NAMESPACE_ID \
 		-gu $GLUSERNAME \
 		-ge $USEREMAIL \
+		-v $VISIBILITY \
+		-g $GROUPNAME \
 		-token $token \
 		-template_id "orchestrator" \
 		-template_source $TEMSOURCE \
@@ -43,9 +46,12 @@ for (( i = 0; i <${#REPONAMES[@]}; i++ )); do
 	./create_repo.sh \
 		-r ${#REPONAMES[$i]} \
 		-bm $BENCHMARK \
-		-ns $NAMESPACE \
+		-ns $NAMESPACE_ID \
+		-d $DIR \
 		-gu $GLUSERNAME \
 		-ge $USEREMAIL \
+		-v $VISIBILITY \
+		-g $GROUPNAME \
 		-token $token \
 		-template_id ${#TEMPLATES[$i]} \
 		-template_source $TEMSOURCE \

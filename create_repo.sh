@@ -4,15 +4,19 @@
 # Author: Søren Helweg Dam
 # Adapted from Izaskun Mallona
 
-while getopts ":bm:g:gid:r:gu:ge:token:ptitle:mkey:template_id:template_source:template_ref:" opt; do
+while getopts ":bm:d:g:ns:r:v:gu:ge:token:ptitle:mkey:template_id:template_source:template_ref:" opt; do
   case $opt in
+    r) REPONAME="$OPTARG"
+    ;;
+    d) DIR="$OPTARG"
+    ;;
     bm) BENCHMARK="$OPTARG"
     ;;
-    gid) GROUPID="$OPTARG"
+    ns) NAMESPACE_ID="$OPTARG"
     ;;
     g) GROUPNAME="$OPTARG"
     ;;
-    r) REPONAME="$OPTARG"
+    v) VISIBILITY="$OPTARG"
     ;;
     gu) GLUSERNAME="$OPTARG"
 	;;
@@ -38,24 +42,33 @@ done
 #Namespace=$(echo "${NAMESPACE}/${REPONAME}" | tr '[:upper:]' '[:lower:]')
 #NAME_SPACE="${NAMESPACE} / ${REPONAME}"
 
+# Edit working directory
+WD=pwd
+DIR=${DIR:-false}
+if [[ $DIR != false ]]; then
+    mkdir -p $DIR
+    cd $DIR
+fi
+
 # Edit group
 GROUPID=${GROUPID:-false}
 GROUPNAME=${GROUPNAME:-false}
 
 
+
 ## creating a (public) repo via API ######################################################
 
-if [[ $GROUPID = false ]]; then
+if [[ $NAMESPACE_ID = false ]]; then
     NAMESPACE=$GLUSERNAME
     curl --header "Authorization: Bearer ${token}" \
          --request POST \
-         "https://renkulab.io/gitlab/api/v4/projects/?name=${REPONAME}&visibility=private"
+         "https://renkulab.io/gitlab/api/v4/projects/?name=${REPONAME}&visibility=${VISIBILITY}"
 
 else
     NAMESPACE=$GROUPNAME
     curl --header "Authorization: Bearer ${token}" \
          --request POST \
-         "https://renkulab.io/gitlab/api/v4/projects/?name=${REPONAME}&namespace_id=${GROUPID}"
+         "https://renkulab.io/gitlab/api/v4/projects/?name=${REPONAME}&namespace_id=${NAMESPACE_ID}&visibility=${VISIBILITY}"
 fi
 
 ## cloning the new (empty) repo in ~/omb  ################################################
@@ -98,3 +111,4 @@ git push --set-upstream origin main
 
 echo "Project created at: https://renkulab.io/gitlab/${NAMESPACE}/${REPONAME}."
 
+cd $WD
