@@ -1,5 +1,6 @@
 #!/bin/bash
 # Configuration of benchmark to set up
+# Make sure all lists have the same length
 
 
 BENCHMARK="Benchmark_name"
@@ -9,7 +10,7 @@ TEMPLATES=("omni-data-py" "omni-data-py")
 GLUSERNAME="random.person"
 USEREMAIL="random.person@mls.uzh.ch"
 KEYWORDS=("${BENCHMARK}_dataset" "${BENCHMARK}_dataset")
-PTITLE=$REPONAMES
+PTITLES=$REPONAMES
 TEMSOURCE="https://github.com/ansonrel/contributed-project-templates"
 TEMREF="main"
 token="glpat-token"

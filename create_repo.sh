@@ -4,6 +4,29 @@
 # Author: Søren Helweg Dam
 # Adapted from Izaskun Mallona
 
+usage(){
+    echo ""
+    echo "Usage: See the 'config_template' file for more details"
+    echo ""
+    echo "Params"
+    echo " -r    Reponame"
+    echo " -bm   Benchmark name"
+    echo " -d    Local repo location"
+    echo " -ns   namespace id"
+    echo " -gu   gitlab username"
+    echo " -ge   gitlab email"
+    echo " -v    visibility"
+    echo " -g    groupname"
+    echo " -t    Personal Access Token"
+    echo " -ti   template ID"
+    echo " -ts   Template source"
+    echo " -tb   Template branch"
+    echo " -k    Keyword"
+    echo " -pt   Project title"
+    echo ""
+}
+
+
 while [ "$1" != "" ]; do
     case $1 in
         -r)           shift
@@ -30,32 +53,36 @@ while [ "$1" != "" ]; do
         -g)       shift
                                GROUPNAME=$1
                                ;;
-        -token)       shift
+        -t)       shift
                                token=$1
                                ;;
-        -template_id)       shift
+        -ti)       shift
                                TEMID=$1
                                ;;
-        -template_source)       shift
+        -ts)       shift
                                TEMSOURCE=$1
                                ;;
-        -template_ref)       shift
+        -tb)       shift
                                TEMREF=$1
                                ;;
-        -mkey)       shift
+        -k)       shift
                                KEYWORD=$1
                                ;;
-        -ptitle)       shift
+        -pt)       shift
                                TITLE=$1
                                ;;
-        -h | --help )          #usage
+        -h | --help )          usage
                                exit
                                ;;
-        * )                    #usage
+        * )                    usage
                                exit 1
     esac
     shift
 done
+
+# Sanitize reponame
+SANITIZED_REPO=$(echo "${REPONAME}" | tr '[:upper:]' '[:lower:]' | tr ' ' '_')
+REPONAME=$(echo "${REPONAME}" | tr ' ' '_')
 
 
 #Namespace=$(echo "${NAMESPACE}/${REPONAME}" | tr '[:upper:]' '[:lower:]')
@@ -74,7 +101,6 @@ echo "${KEYWORD}"
 echo "${TITLE}"
 echo "${TEMSOURCE}"
 echo "${TEMREF}"
-
 
 
 # Edit working directory
@@ -128,11 +154,11 @@ git switch -c main
 renku init  --template-source "${TEMSOURCE}" \
       --template-ref "${TEMREF}" \
       --template-id "${TEMID}" \
-      --parameter "metric_keyword"="$KEYWORD}" \
+      --parameter "metric_keyword"="${KEYWORD}" \
       --parameter "project_title"="${TITLE}" \
       --parameter "dataset_keyword"="${KEYWORD}" \
       --parameter "method_keyword"="${KEYWORD}" \
-      --parameter "sanitized_project_name"="${REPONAME}" \
+      --parameter "sanitized_project_name"="${SANITIZED_REPO}" \
       --parameter "metadata_description"="Metadata Description" \
       --parameter "study_link"="" \
       --parameter "study_note"="" \

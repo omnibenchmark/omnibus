@@ -39,6 +39,14 @@ done
 # Load configuration settings
 source $CONFIG
 
+# Error checks
+
+if [ ${#REPONAMES} -eq ${#TEMPLATES} ] && [ ${#TEMPLATES} -eq ${#KEYWORDS} ] && [ ${#KEYWORDS} -eq ${#PTITLE} ]; then
+	echo "Please make sure all lists have the same lengths."
+	exit 1
+fi
+
+
 # Build Orchestrator
 
 if [ $ORCHESTRATOR ]; then
@@ -51,12 +59,12 @@ if [ $ORCHESTRATOR ]; then
 		-ge "${USEREMAIL}" \
 		-v "${VISIBILITY}" \
 		-g "${GROUPNAME}" \
-		-token "${token}" \
-		-template_id "orchestrator" \
-		-template_source "${TEMSOURCE}" \
-		-template_ref "CLI_dev" \
-		-mkey "orchestrator" \
-		-ptitle "${PTITLE}"
+		-t "${token}" \
+		-ti "orchestrator" \
+		-ts "${TEMSOURCE}" \
+		-tb "CLI_dev" \
+		-k "orchestrator" \
+		-pt "orchestrator"
 fi
 
 # Build Parameters
@@ -71,12 +79,12 @@ if [ $PARAMETERS ]; then
 		-ge "${USEREMAIL}" \
 		-v "${VISIBILITY}" \
 		-g "${GROUPNAME}" \
-		-token "${token}" \
-		-template_id "omni-param-py" \
-		-template_source "${TEMSOURCE}" \
-		-template_ref "CLI_main" \
-		-mkey "parameters" \
-		-ptitle "${PTITLE}"
+		-t "${token}" \
+		-ti "omni-param-py" \
+		-ts "${TEMSOURCE}" \
+		-tb "CLI_main" \
+		-k "parameters" \
+		-pt "parameters"
 fi
 
 # Build manually defined projects
@@ -92,10 +100,10 @@ for (( i = 0; i <${#REPONAMES[@]}; i++ )); do
 		-ge "${USEREMAIL}" \
 		-v "${VISIBILITY}" \
 		-g "${GROUPNAME}" \
-		-token "${token}" \
-		-template_id "${TEMPLATES[$i]}" \
-		-template_source "${TEMSOURCE}" \
-		-template_ref "${TEMREF}" \
-		-mkey "${KEYWORDS[$i]}" \
-		-ptitle "${PTITLE}"
+		-t "${token}" \
+		-ti "${TEMPLATES[$i]}" \
+		-ts "${TEMSOURCE}" \
+		-tb "${TEMREF}" \
+		-k "${KEYWORDS[$i]}" \
+		-pt "${PTITLES[$i]}"
 done
