@@ -74,7 +74,7 @@ if [ $PARAMETERS ]; then
 		-token "${token}" \
 		-template_id "omni-param-py" \
 		-template_source "${TEMSOURCE}" \
-		-template_ref "CLI" \
+		-template_ref "CLI_main" \
 		-mkey "parameters" \
 		-ptitle "${PTITLE}"
 fi

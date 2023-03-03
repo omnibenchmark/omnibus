@@ -130,8 +130,9 @@ renku init  --template-source "${TEMSOURCE}" \
       --template-id "${TEMID}" \
       --parameter "metric_keyword"="$KEYWORD}" \
       --parameter "project_title"="${TITLE}" \
-      --parameter "dataset_keyword"="${BENCHMARK}_${REPONAME}" \
-      --parameter "sanitized_project_name"="${BENCHMARK}" \
+      --parameter "dataset_keyword"="${KEYWORD}" \
+      --parameter "method_keyword"="${KEYWORD}" \
+      --parameter "sanitized_project_name"="${REPONAME}" \
       --parameter "metadata_description"="Metadata Description" \
       --parameter "study_link"="" \
       --parameter "study_note"="" \
