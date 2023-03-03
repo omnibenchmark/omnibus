@@ -1,2 +1,0 @@
-omnibenchmark==0.0.41
-git+https://github.com/omnibenchmark/omniValidator@main

@@ -5,6 +5,10 @@ Here, we provide you the functionality for creating and adjusting your benchmark
 
 Make sure the scripts in the bin folder is in your path.
 
+```sh
+export PATH=$PATH:/path/to/bin
+```
+
 ## Set up a virtual environment (optional)
 
 ```sh
