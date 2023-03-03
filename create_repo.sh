@@ -48,10 +48,10 @@ while [ "$1" != "" ]; do
         -ptitle)       shift
                                TITLE=$1
                                ;;
-        -h | --help )          usage
+        -h | --help )          #usage
                                exit
                                ;;
-        * )                    usage
+        * )                    #usage
                                exit 1
     esac
     shift
@@ -60,7 +60,7 @@ done
 
 #Namespace=$(echo "${NAMESPACE}/${REPONAME}" | tr '[:upper:]' '[:lower:]')
 #NAME_SPACE="${NAMESPACE} / ${REPONAME}"
-echo "Setting up repo with the following settings:"
+echo "Setting up project with the following settings:"
 echo "${BENCHMARK}"
 echo "${NAMESPACE_ID}"
 echo "${DIR}"
@@ -117,8 +117,8 @@ git clone https://oauth2:"$token"@renkulab.io/gitlab/"${NAMESPACE}"/"${REPONAME}
 
 cd "$REPONAME"
 
-git config --global --add user.name "${GLUSERNAME}"
-git config --global --add user.email "${USEREMAIL}"
+git config --local --add user.name "${GLUSERNAME}"
+git config --local --add user.email "${USEREMAIL}"
 git remote set-url origin https://oauth2:"$token"@renkulab.io/gitlab/"$NAMESPACE"/"$REPONAME".git
 git switch -c main
 
@@ -131,7 +131,7 @@ renku init  --template-source "${TEMSOURCE}" \
       --parameter "metric_keyword"="$KEYWORD}" \
       --parameter "project_title"="${TITLE}" \
       --parameter "dataset_keyword"="${BENCHMARK}_${REPONAME}" \
-      --parameter "sanitized_name"="${BENCHMARK}" \
+      --parameter "sanitized_project_name"="${BENCHMARK}" \
       --parameter "metadata_description"="Metadata Description" \
       --parameter "study_link"="" \
       --parameter "study_note"="" \
