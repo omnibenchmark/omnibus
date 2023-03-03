@@ -3,10 +3,11 @@
 
 Here, we provide you the functionality for creating and adjusting your benchmark.
 
-Make sure the scripts in the bin folder is in your path.
+## Install omniformer
 
 ```sh
-export PATH=$PATH:/path/to/bin
+cd /path/to/dir
+make install
 ```
 
 ## Set up a virtual environment (optional)
