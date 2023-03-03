@@ -2,7 +2,7 @@
 # Configuration of benchmark to set up
 # Make sure all lists have the same length
 # Author: Søren Helweg Dam
-# Date: 03-MAR-2023
+
 
 
 BENCHMARK="Benchmark_name"
