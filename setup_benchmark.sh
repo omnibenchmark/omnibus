@@ -2,10 +2,7 @@
 #
 # Template for setting up a full benchmark
 # Author: Søren Helweg Dam
-#
-# Setup virtual environment
-# source setup_env.sh
-
+# Date: 03-MAR-2023
 
 usage(){
     echo ""

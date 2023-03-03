@@ -1,0 +1,41 @@
+#!/bin/bash
+# Configuration of benchmark to set up
+# Make sure all lists have the same length
+# Author: Søren Helweg Dam
+# Date: 03-MAR-2023
+
+
+BENCHMARK="Benchmark_name"
+NAMESPACE_ID="Namspace_ID"
+GROUPNAME="My_benchmark_group"
+DIR="/root/omb/${BENCHMARK}"
+REPONAMES=("dataset_1" "method_1" "metric_1") # List
+PTITLES=$REPONAMES # List
+KEYWORDS=("${BENCHMARK}_dataset" "${BENCHMARK}_method" "${BENCHMARK}_metric") # List
+TEMPLATES=("omni-data-py" "omni-method-py" "omni-metric-py") # List
+TEMSOURCE="https://github.com/omnibenchmark/contributed-project-templates"
+TEMREF="CLI_main"
+VISIBILITY="public"
+GLUSERNAME="Søren Helweg Dam"
+USEREMAIL="soren.helweg@gmail.com"
+token="glpat-blabla"
+
+
+# Explainations:
+# REPONAMES, TEMPLATES, KEYWORDS, and PTITLES must have the same length!
+#
+# Explainations:
+# BENCHMARK: Sets the name of the benchmark you are setting up
+# NAMESPACE_ID: The ID of the group you have made (please make the group beforehand)
+# GROUPNAME: The name of the group you created
+# DIR: Path to where you would like the template repos to be created on your system 
+# REPONAMES: The project names for each benchmark component (do not include the orcestrator or parameters)
+# PTITLES: The titles for each project.
+# KEYWORDS: The keywords to assign each project that lets omnibenchmark refer to them
+# TEMPLATES: (options: "omni-data-py" "omni-method-py" "omni-metric-py" "omni-param-py" "omni-processed-py")
+# TEMSOURCE: The link to a repository of GitLab templates
+# TEMREF: The branch for the template 
+# VISIBILITY: The visibility of your projects
+# GLUSERNAME: Your GitLab username
+# USEREMAIL:  Your GitLab email
+# token: A token with `api` scope at renkulab.io's gitlab

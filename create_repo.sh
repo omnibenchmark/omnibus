@@ -2,6 +2,7 @@
 #
 # Create a single repo
 # Author: Søren Helweg Dam
+# Date: 03-MAR-2023
 # Adapted from Izaskun Mallona
 
 usage(){
@@ -133,11 +134,7 @@ else
 fi
 
 
-## cloning the new (empty) repo in ~/omb  ################################################
-
-#mkdir -p ~/omb
-#cd $_
-
+## cloning the new (empty) repo  ################################################
 
 git clone https://oauth2:"$token"@renkulab.io/gitlab/"${NAMESPACE}"/"${REPONAME}".git
 
@@ -148,8 +145,7 @@ git config --local --add user.email "${USEREMAIL}"
 git remote set-url origin https://oauth2:"$token"@renkulab.io/gitlab/"$NAMESPACE"/"$REPONAME".git
 git switch -c main
 
-## renkufy the repo using an omnibenchmark (dataset) template ###########################
-##   will ask interactively to fill other params (press enter and/or fill them)
+## renkufy the repo using an omnibenchmark template ###########################
 
 renku init  --template-source "${TEMSOURCE}" \
       --template-ref "${TEMREF}" \
@@ -165,11 +161,7 @@ renku init  --template-source "${TEMSOURCE}" \
       --parameter "study_tissue"=""
 
 
-## the command above already committed changes
-# git log
-
-## so push to remote to trigger a docker image generation via CI/CD
-##   be aware of your `mastercopy` branch, is it named `master` or `main`?
+## Push to remote to trigger a docker image generation via CI/CD
 git push --set-upstream origin main
 
 echo "Project created at: https://renkulab.io/gitlab/${NAMESPACE}/${REPONAME}."
