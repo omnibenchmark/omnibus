@@ -25,6 +25,9 @@ while [ "$1" != "" ]; do
                                	;;
         -p) PARAMETERS=true
                               	;;
+        -op) ORCHESTRATOR=true
+			 PARAMETERS=true
+                              	;;
 		-t)           			shift
                                	TOKEN="$1"
                                	;;

@@ -5,19 +5,28 @@ usage(){
     echo ""
     echo "Usage: bash ""$(basename "$0")"""
     echo "OBS: Please read the README before running."
+    echo " -a       Activate environment instead of installing"
     echo ""
 }
 
 while [ "$1" != "" ]; do
     case $1 in
-        -h | --help )          usage
-                               exit
-                               ;;
-        * )                    usage
-                               exit 1
+        -a) ACTIVATE=true
+                                ;;
+        -h | --help )           usage
+                                exit
+                                ;;
+        * )                     usage
+                                exit 1
     esac
     shift
 done
+
+if [ $ACTIVATE ]; then
+    source ~/virtenvs/omb/bin/activate 
+    exit
+fi
+
 
 ## start here if you'd like to get a renku+omb virtual environment      #################
 ##    compiling your own python   #######################################################
@@ -28,6 +37,10 @@ done
 mkdir -p ~/virtenvs ~/soft/python ~/omb
 cd $_
 
+# Install important dependency
+apt-get install libbz2-dev
+
+# Install python
 wget https://www.python.org/ftp/python/3.9.2/Python-3.9.2.tgz
 tar xzvf Python-3.9.2.tgz
 cd Python-3.9.2
@@ -52,6 +65,7 @@ source ~/virtenvs/omb/bin/activate
 ## dependencies
 
 ~/soft/python/Python-3.9.2/bin/pip3 install omnibenchmark==0.0.41
-~/soft/python/Python-3.9.2/bin/python3 -m pip install --user pipx
-pipx ensurepath
-pipx install --force renku==0.10.0
+~/soft/python/Python-3.9.2/bin/pip3 install renku==1.10.0
+
+cat "Exit environment with command 'deactivate'"
+cat "Reactivate with command 'source ~/virtenvs/omb/bin/activate'"

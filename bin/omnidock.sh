@@ -16,6 +16,7 @@ usage(){
     echo " -gu   gitlab username"
     echo " -ge   gitlab email"
     echo " -t    Personal Access Token"
+    exho " -p    Pull only (does not use docker)"
     echo ""
 }
 
@@ -40,6 +41,8 @@ while [ "$1" != "" ]; do
         -t)       shift
                                token=$1
                                ;;
+        -p) PULL=false
+                               ;;
         -h | --help )          usage
                                exit
                                ;;
@@ -50,13 +53,14 @@ while [ "$1" != "" ]; do
 done
 
 
-## docker pull the generated image (the id is the first 7chars of the last git commit pushed to gitlab)  ##
+if [[ $PULL = false ]]; then
+    ## docker pull the generated image (the id is the first 7chars of the last git commit pushed to gitlab)  ##
 
+    docker login registry.renkulab.io -u "$GLUSERNAME" -p "$token"
 
-docker login registry.renkulab.io -u "$GLUSERNAME" -p "$token"
-
-docker run -it -e GLUSERNAME="$GLUSERNAME" -e GROUPNAME="$GROUPNAME" -e REPONAME="$REPONAME" -e token="$token" -e USEREMAIL="$USEREMAIL"\
-       registry.renkulab.io/"$GROUPNAME"/"$REPONAME":"$IMAGEID" /bin/bash
+    docker run -it -e GLUSERNAME="$GLUSERNAME" -e GROUPNAME="$GROUPNAME" -e REPONAME="$REPONAME" -e token="$token" -e USEREMAIL="$USEREMAIL"\
+           registry.renkulab.io/"$GROUPNAME"/"$REPONAME":"$IMAGEID" /bin/bash
+fi
 
 ## now we're inside the omnibenchmark-capable container but we don't have the code there (!)
 ##   let's clone the repo again, to have both code (omb-templated) + soft stack +
