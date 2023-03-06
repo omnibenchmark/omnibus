@@ -27,6 +27,26 @@ Specificy each parameter according to the instructions in the file.
 
 It is recommended to create a new group or subgroup on GitLab to store your benchmark projects on. Otherwise, comment out `NAMESPACE_ID` and `GROUPNAME` to create it on your own profile.
 
+An R function is provided that lets you create the config file from R:
+
+```r
+
+# Requirements: install.packages("readr")
+source("create_config.R")
+
+create_config(
+	benchmark = "Your_benchmark",
+	datanames = c("name1", "name2", "name3"),
+	methodnames = c("name1", "name2"),
+	metricnames = c("name1", "name2"),
+	explainer = TRUE, # Adds explanation of each config parameter to the buttom of the file
+	... # Add any config parameter setting (does not work with BENCHMARK, REPONAMES,
+	# KEYWORDS, or TEMPLATES). Names must match the names from the template.
+	)
+# The config file will be called "config_<benchmark>"
+
+```
+
 ## Creating the benchmark
 
 Create your brand new benchmark by running

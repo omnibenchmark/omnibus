@@ -1,6 +1,27 @@
 #!/bin/bash
+# Adjusted from Izaskun Mallona
+
+usage(){
+    echo ""
+    echo "Usage: bash ""$(basename "$0")"""
+    echo "OBS: Please read the README before running."
+    echo ""
+}
+
+while [ "$1" != "" ]; do
+    case $1 in
+        -h | --help )          usage
+                               exit
+                               ;;
+        * )                    usage
+                               exit 1
+    esac
+    shift
+done
+
 ## start here if you'd like to get a renku+omb virtual environment      #################
 ##    compiling your own python   #######################################################
+
 
 ## compile python 3.9.2  ################################################################
 
@@ -30,5 +51,7 @@ source ~/virtenvs/omb/bin/activate
 
 ## dependencies
 
-pip3 install omnibenchmark==0.0.41
-pip3 install renku==1.10.0
+~/soft/python/Python-3.9.2/bin/pip3 install omnibenchmark==0.0.41
+~/soft/python/Python-3.9.2/bin/python3 -m pip install --user pipx
+pipx ensurepath
+pipx install --force renku==0.10.0

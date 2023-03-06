@@ -12,29 +12,36 @@ usage(){
     echo " -c    config file"
     echo " -p    Create parameters project"
     echo " -o    Create Orchestrator"
+    exho " -t	 Personal Access Token with API permissions () overwrites the config token, if one was given there"
     echo ""
 }
 
 while [ "$1" != "" ]; do
     case $1 in
-        -c)           shift
-                               CONFIG="$1"
-                               ;;
+        -c)           			shift
+                               	CONFIG="$1"
+                               	;;
         -o) ORCHESTRATOR=true
-                               ;;
+                               	;;
         -p) PARAMETERS=true
-                               ;;
-        -h | --help )          usage
-                               exit
-                               ;;
-        * )                    usage
-                               exit 1
+                              	;;
+		-t)           			shift
+                               	TOKEN="$1"
+                               	;;
+        -h | --help )          	usage
+                               	exit
+                               	;;
+        * )                    	usage
+                               	exit 1
     esac
     shift
 done
 
 # Load configuration settings
 source $CONFIG
+
+token=${TOKEN:-token}
+
 
 # Error checks
 

@@ -24,7 +24,6 @@ token="glpat-blabla"
 # Explainations:
 # REPONAMES, TEMPLATES, KEYWORDS, and PTITLES must have the same length!
 #
-# Explainations:
 # BENCHMARK: Sets the name of the benchmark you are setting up
 # NAMESPACE_ID: The ID of the group you have made (please make the group beforehand)
 # GROUPNAME: The name of the group you created
