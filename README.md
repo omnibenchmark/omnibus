@@ -3,10 +3,13 @@
 
 Here, we provide you the functionality for creating and adjusting your benchmark.
 
-## Install omniformer
+## Install omnicaster
 
 ```sh
-cd /path/to/dir
+git pull https://github.com/shdam/omnicaster.git
+
+cd omnicaster
+
 make install
 ```
 
