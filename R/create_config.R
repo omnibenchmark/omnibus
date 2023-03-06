@@ -1,6 +1,7 @@
 #' Function to create a config file for Omnibenchmark setup
 #' 
 #' @param benchmark Name of the benchmark
+#' @param config Name of config file
 #' @param datasets The number of datasets to add to the config
 #' @param datanames The names of the datasets to add
 #' @param methods The number of methods to add to the config
@@ -12,6 +13,7 @@
 #'
 create_config <- function(
         benchmark,
+        config = NULL,
         datasets = NULL, 
         datanames = NULL,
         methods = NULL,
@@ -34,6 +36,8 @@ create_config <- function(
                     "and those in the config template:\n", 
                    paste(used_args, collapse = ", ")))
     }
+    
+    if(is.null(config)) config <- paste0('config_', benchmark)
     
     REPONAMES <- "REPONAMES=("
     KEYWORDS <- "KEYWORDS=("
@@ -153,12 +157,12 @@ create_config <- function(
           explainer_message,
           sep ='\n'
           ),
-      file = paste0('config_', benchmark)
+      file = config
       )
     # cat(content)
     # system(paste("cat", content, ">", paste0('config_', benchmark)))
     
-    cat("Config stored at '", getwd(), "/config_", benchmark, "' Make sure to edit the config where indicated", sep = "")
+    cat("Config stored at '", getwd(), config, "' Make sure to edit the config where indicated", sep = "")
     
 }
 

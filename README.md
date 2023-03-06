@@ -40,6 +40,7 @@ source("create_config.R")
 
 create_config(
 	benchmark = "Your_benchmark",
+	config = "config_benchmark_init",
 	datanames = c("name1", "name2", "name3"),
 	methodnames = c("name1", "name2"),
 	metricnames = c("name1", "name2"),
