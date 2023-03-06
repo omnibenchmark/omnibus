@@ -57,7 +57,7 @@ fi
 # Build Orchestrator
 
 if [ $ORCHESTRATOR ]; then
-	omnibuild \
+	omnispawn \
 		-r "orchestrator" \
 		-bm "${BENCHMARK}" \
 		-d "${DIR}" \
@@ -77,7 +77,7 @@ fi
 # Build Parameters
 
 if [ $PARAMETERS ]; then
-	omnibuild \
+	omnispawn \
 		-r "parameters" \
 		-bm "${BENCHMARK}" \
 		-d "${DIR}" \
@@ -98,7 +98,7 @@ fi
 
 for (( i = 0; i <${#REPONAMES[@]}; i++ )); do
 	#statements
-	omnibuild \
+	omnispawn \
 		-r "${REPONAMES[$i]}" \
 		-bm "${BENCHMARK}" \
 		-ns "${NAMESPACE_ID}" \

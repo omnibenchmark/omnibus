@@ -1,7 +1,7 @@
 # Makefile for omniformer
 
 INSTALL_DIR=/usr/local/bin
-SCRIPTS=omniformer omnibuild omnivir omnidock
+SCRIPTS=omnicaster omnispawn omnivir omnidock
 SCRIPTS_DIR=bin
 
 .PHONY: install uninstall
@@ -19,11 +19,11 @@ uninstall:
             echo "Uninstalled $$script" ; \
         done
 
-omniformer:
-	@$(INSTALL_DIR)/omniformer.sh
+omnicaster:
+	@$(INSTALL_DIR)/omnicaster.sh
 
-omnibuild:
-	@$(INSTALL_DIR)/omnibuild.sh
+omnispawn:
+	@$(INSTALL_DIR)/omnispawn.sh
 
 omnivir:
 	@$(INSTALL_DIR)/omnivir.sh

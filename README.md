@@ -19,7 +19,7 @@ This will create three folders in your `~/` directory called `virtenvs`, `soft`,
 `~/virtenvs` will store the virtual environment.
 `~/soft` will store `Python-3.9.2`.
 `~/omb` is meant to store your benchmarks.
-The `omniformer` dependencies will be installed in the virtual environment.
+The `omnicaster` dependencies will be installed in the virtual environment.
 
 ## Define benchmark structure
 
@@ -54,7 +54,7 @@ Create your brand new benchmark by running
 
 ```sh
 
-omniformer -o -p -c CONFIGFILE
+omnicaster -o -p -c CONFIGFILE
 
 ```
 
@@ -67,7 +67,7 @@ Create a new config file based on the one you made previously. Edit the list par
 
 ```sh
 
-omniformer -c CONFIGFILE
+omnicaster -c CONFIGFILE
 
 ```
 
