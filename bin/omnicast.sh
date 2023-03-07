@@ -174,6 +174,6 @@ renku init  --template-source "${TEMSOURCE}" \
 ## Push to remote to trigger a docker image generation via CI/CD
 git push --set-upstream origin main
 
-echo "Project created at: https://renkulab.io/gitlab/${NAMESPACE}/${REPONAME}."
+echo "Project created at: https://renkulab.io/gitlab/${NAMESPACE}/${REPONAME}"
 
 cd $WD

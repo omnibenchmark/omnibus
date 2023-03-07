@@ -16,7 +16,7 @@ usage(){
     echo " -gu   gitlab username"
     echo " -ge   gitlab email"
     echo " -t    Personal Access Token"
-    exho " -c    Clone only (does not use docker)"
+    echo " -c    Clone only (does not use docker)"
     echo ""
 }
 
