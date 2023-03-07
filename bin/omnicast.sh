@@ -122,13 +122,13 @@ GROUPNAME=${GROUPNAME:-false}
 ## creating a (public) repo via API ######################################################
 
 if [[ $NAMESPACE_ID = false ]]; then
-    NAMESPACE="$GLUSERNAME"
+    NAMESPACE="${GLUSERNAME}"
     curl --header "Authorization: Bearer ${token}" \
          --request POST \
          "https://renkulab.io/gitlab/api/v4/projects/?name=${REPONAME}&visibility=${VISIBILITY}"
 
 else
-    NAMESPACE=$GROUPNAME
+    NAMESPACE="${GROUPNAME}"
     curl --header "Authorization: Bearer ${token}" \
          --request POST \
          "https://renkulab.io/gitlab/api/v4/projects/?name=${REPONAME}&namespace_id=${NAMESPACE_ID}&visibility=${VISIBILITY}"
@@ -143,7 +143,7 @@ cd "$REPONAME"
 
 git config --local --add user.name "${GLUSERNAME}"
 git config --local --add user.email "${USEREMAIL}"
-git remote set-url origin https://oauth2:"$token"@renkulab.io/gitlab/"$NAMESPACE"/"$REPONAME".git
+git remote set-url origin https://oauth2:"${token}"@renkulab.io/gitlab/"${NAMESPACE}"/"${REPONAME}".git
 git switch -c main
 
 ## renkufy the repo using an omnibenchmark template ###########################
