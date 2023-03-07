@@ -129,17 +129,24 @@ if [[ $NAMESPACE_ID = false ]]; then
 
 else
     NAMESPACE="${GROUPNAME}"
-    curl --header "Authorization: Bearer ${token}" \
+    response=$(curl --header "Authorization: Bearer ${token}" \
          --request POST \
-         "https://renkulab.io/gitlab/api/v4/projects/?name=${REPONAME}&namespace_id=${NAMESPACE_ID}&visibility=${VISIBILITY}"
+         "https://renkulab.io/gitlab/api/v4/projects/?name=${REPONAME}&namespace_id=${NAMESPACE_ID}&visibility=${VISIBILITY}")
+
+fi
+
+if echo "$response" | grep -q '401'; then
+    echo "Authorization error: 401"
+    echo "Please check your token permissions."
+    exit 1
 fi
 
 
 ## cloning the new (empty) repo  ################################################
 
-git clone https://oauth2:"$token"@renkulab.io/gitlab/"${NAMESPACE}"/"${REPONAME}".git
+git clone https://oauth2:"${token}"@renkulab.io/gitlab/"${NAMESPACE}"/"${REPONAME}".git
 
-cd "$REPONAME"
+cd "${REPONAME}"
 
 git config --local --add user.name "${GLUSERNAME}"
 git config --local --add user.email "${USEREMAIL}"
