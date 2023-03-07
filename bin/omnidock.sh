@@ -13,8 +13,8 @@ usage(){
     echo " -r    Reponame"
     echo " -g    Group name"
     echo " -i    Image ID"
-    echo " -gu   gitlab username"
-    echo " -ge   gitlab email"
+    echo " -u    gitlab username"
+    echo " -e    gitlab email"
     echo " -t    Personal Access Token"
     echo " -c    Clone only (does not use docker)"
     echo ""
@@ -32,10 +32,10 @@ while [ "$1" != "" ]; do
         -i)       shift
                                IMAGEID=$1
                                ;;
-        -gu)       shift
+        -u)       shift
                                GLUSERNAME=$1
                                ;;
-        -ge)       shift
+        -e)       shift
                                USEREMAIL=$1
                                ;;
         -t)       shift

@@ -14,8 +14,8 @@ usage(){
     echo " -bm   Benchmark name"
     echo " -d    Local repo location"
     echo " -ns   namespace id"
-    echo " -gu   gitlab username"
-    echo " -ge   gitlab email"
+    echo " -u   gitlab username"
+    echo " -e   gitlab email"
     echo " -v    visibility"
     echo " -g    groupname"
     echo " -t    Personal Access Token"
@@ -42,10 +42,10 @@ while [ "$1" != "" ]; do
         -ns)       shift
                                NAMESPACE_ID=$1
                                ;;
-        -gu)       shift
+        -u)       shift
                                GLUSERNAME=$1
                                ;;
-        -ge)       shift
+        -e)       shift
                                USEREMAIL=$1
                                ;;
         -v)       shift

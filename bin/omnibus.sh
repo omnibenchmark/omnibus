@@ -82,8 +82,8 @@ if [ $ORCHESTRATOR ]; then
 		-bm "${BENCHMARK}" \
 		-d "${DIR}" \
 		-ns "${NAMESPACE_ID}" \
-		-gu "${GLUSERNAME}" \
-		-ge "${USEREMAIL}" \
+		-u "${GLUSERNAME}" \
+		-e "${USEREMAIL}" \
 		-v "${VISIBILITY}" \
 		-g "${GROUPNAME}" \
 		-t "${token}" \
@@ -102,8 +102,8 @@ if [ $PARAMETERS ]; then
 		-bm "${BENCHMARK}" \
 		-d "${DIR}" \
 		-ns "${NAMESPACE_ID}" \
-		-gu "${GLUSERNAME}" \
-		-ge "${USEREMAIL}" \
+		-u "${GLUSERNAME}" \
+		-e "${USEREMAIL}" \
 		-v "${VISIBILITY}" \
 		-g "${GROUPNAME}" \
 		-t "${token}" \
@@ -122,8 +122,8 @@ for (( i = 0; i <${#REPONAMES[@]}; i++ )); do
 		-bm "${BENCHMARK}" \
 		-ns "${NAMESPACE_ID}" \
 		-d "${DIR}" \
-		-gu "${GLUSERNAME}" \
-		-ge "${USEREMAIL}" \
+		-u "${GLUSERNAME}" \
+		-e "${USEREMAIL}" \
 		-v "${VISIBILITY}" \
 		-g "${GROUPNAME}" \
 		-t "${token}" \

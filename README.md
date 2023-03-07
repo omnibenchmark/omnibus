@@ -94,13 +94,13 @@ First, you need to locate the image ID found under `Packages & Registries` > `Co
 Example usage:
 
 ```sh
-omnidock -r REPONAME -g GROUPNAME -i IMAGEID -gu "USER.NAME" -ge "EMAIL" -t TOKEN
+omnidock -r REPONAME -g GROUPNAME -i IMAGEID -u "USER.NAME" -e "EMAIL" -t TOKEN
 ```
 
 OBS: You may use `omnidock` outside docker by using the `-c` flag:
 This will simply clone the repository to your current directory instead of launching a docker instance.
 
 ```sh
-omnidock -c -r REPONAME -g GROUPNAME -gu "USER.NAME" -ge "EMAIL" -t TOKEN
+omnidock -c -r REPONAME -g GROUPNAME -u "USER.NAME" -e "EMAIL" -t TOKEN
 ```
 
