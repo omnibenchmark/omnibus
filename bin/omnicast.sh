@@ -151,7 +151,6 @@ git switch -c main
 renku init  --template-source "${TEMSOURCE}" \
       --template-ref "${TEMREF}" \
       --template-id "${TEMID}" \
-      --parameter "benchmark_name"="${BENCHMARK}" \
       --parameter "metric_keyword"="${KEYWORD}" \
       --parameter "project_title"="${TITLE}" \
       --parameter "dataset_keyword"="${KEYWORD}" \
@@ -163,6 +162,7 @@ renku init  --template-source "${TEMSOURCE}" \
       --parameter "study_link"="" \
       --parameter "study_note"="" \
       --parameter "study_tissue"=""
+      #--parameter "benchmark_name"="${BENCHMARK}" \
 
 
 ## Push to remote to trigger a docker image generation via CI/CD
