@@ -75,6 +75,15 @@ omnibus -c CONFIGFILE
 
 ```
 
+Alternatively, this can be done by specifying the new reponame, keyword, and template directly in the function call:
+
+```sh
+
+omnibus -c CONFIGFILE -r REPONAME -k KEYWORD -tp TEMPLATE
+
+```
+
+This will overwrite the REPONAMES, KEYWORDS, TEMPLATES, and PTITLES given in the config file, so the same config file can be used unedited.
 
 ## Run a project in docker
 

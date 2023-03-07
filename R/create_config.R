@@ -100,7 +100,7 @@ create_config <- function(
     NAMESPACE_ID <- ifelse(!is.null(arg_list$NAMESPACE_ID), paste0(arg_list$NAMESPACE_ID, '"'), 'Namspace_ID" # EDIT HERE')
     GROUPNAME <- ifelse(!is.null(arg_list$GROUPNAME), paste0(arg_list$GROUPNAME, '"'), 'My_benchmark_group" # EDIT HERE')
     DIR <- ifelse(!is.null(arg_list$DIR), paste0(arg_list$DIR, '"'), '/root/omb/${BENCHMARK}" # EDIT HERE')
-    PTITLES <- ifelse(!is.null(arg_list$PTITLES), paste0(arg_list$PTITLES, '"'), '"${REPONAMES}"')
+    PTITLES <- ifelse(!is.null(arg_list$PTITLES), paste0(arg_list$PTITLES, '"'), '${REPONAMES}"')
     TEMSOURCE <- ifelse(!is.null(arg_list$TEMSOURCE), paste0(arg_list$TEMSOURCE, '"'), 'https://github.com/omnibenchmark/contributed-project-templates"')
     TEMREF <- ifelse(!is.null(arg_list$TEMREF), paste0(arg_list$TEMREF, '"'), 'CLI_main"')
     VISIBILITY <- ifelse(!is.null(arg_list$VISIBILITY), paste0(arg_list$VISIBILITY, '"'), 'public/private" # EDIT HERE')
@@ -136,7 +136,7 @@ create_config <- function(
     # 
     readr::write_file(
       paste(
-          "#!/bin/bash", # shebang
+          "#!/bin/bash",
           paste("# Configuration of", benchmark),
           "# ",
           "# ",
@@ -163,22 +163,5 @@ create_config <- function(
     # system(paste("cat", content, ">", paste0('config_', benchmark)))
     
     cat("Config stored at '", getwd(), config, "' Make sure to edit the config where indicated", sep = "")
-    
-}
-
-
-if(FALSE){
-    
-    create_config(
-        benchmark = "my_new_benchmark",
-        datasets = 5,
-        datanames = NULL,
-        methods = 2,
-        methodnames = NULL,
-        metrics = 3,
-        metricnames = c("ARI", "NID"),
-        explainer = TRUE,
-        token = "testtoken",
-        VISIBILITY = "private")
     
 }

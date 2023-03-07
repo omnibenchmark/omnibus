@@ -6,13 +6,16 @@
 
 usage(){
     echo ""
-    echo "Usage: bash ""$(basename "$0")"" -o -p -c config_file"
+    echo "Usage: bash ""$(basename "$0")"" -o -p -c CONFIGFILE"
     echo ""
     echo "Params"
-    echo " -c    config file"
-    echo " -p    Create parameters project"
-    echo " -o    Create Orchestrator"
-    exho " -t	 Personal Access Token with API permissions () overwrites the config token, if one was given there"
+    echo " -c   	config file"
+    echo " -p   	Create parameters project"
+    echo " -o   	Create Orchestrator"
+    echo " -t		Personal Access Token with API permissions (overwrites the config token, if one was given there)"
+    echo " -r		Name of single repository to create"
+    echo " -k		Name of keyword for single repository"
+    echo " -tp		Name of template to use for single repository"
     echo ""
 }
 
@@ -31,6 +34,15 @@ while [ "$1" != "" ]; do
 		-t)           			shift
                                	TOKEN="$1"
                                	;;
+		-r)           			shift
+                               	REPO="$1"
+                               	;;
+		-k)           			shift
+                               	KEY="$1"
+                               	;;
+		-tp)           			shift
+                               	TEMP="$1"
+                               	;;
         -h | --help )          	usage
                                	exit
                                	;;
@@ -43,13 +55,21 @@ done
 # Load configuration settings
 source $CONFIG
 
+# Overwrite config vars for those given as input
 token=${TOKEN:-token}
-
+REPONAMES=(${REPO:-${REPONAMES[@]}})
+PTITLES=(${REPO:-${REPONAMES[@]}})
+KEYWORDS=(${KEY:-${KEYWORDS[@]}})
+TEMPLATES=(${TEMP:-${TEMPLATES[@]}})
 
 # Error checks
 
-if [ ${#REPONAMES} -eq ${#TEMPLATES} ] && [ ${#TEMPLATES} -eq ${#KEYWORDS} ] && [ ${#KEYWORDS} -eq ${#PTITLE} ]; then
+if [ "${#REPONAMES[@]}" -ne "${#TEMPLATES[@]}" ] || [ "${#TEMPLATES[@]}" -ne "${#KEYWORDS[@]}" ] || [ "${#KEYWORDS[@]}" -ne "${#PTITLES[@]}" ]; then
 	echo "Please make sure all lists have the same lengths."
+	echo "KEYWORDS: ${KEYWORDS[@]}"
+	echo "REPONAMES: ${REPONAMES[@]}"
+	echo "TEMPLATES: ${TEMPLATES[@]}"
+	echo "PTITLES: ${PTITLES[@]}"
 	exit 1
 fi
 
@@ -97,7 +117,6 @@ fi
 # Build manually defined projects
 
 for (( i = 0; i <${#REPONAMES[@]}; i++ )); do
-	#statements
 	omnicast \
 		-r "${REPONAMES[$i]}" \
 		-bm "${BENCHMARK}" \
