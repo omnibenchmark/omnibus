@@ -56,7 +56,7 @@ done
 source $CONFIG
 
 # Overwrite config vars for those given as input
-token=${TOKEN:-token}
+token=${TOKEN:-$token}
 REPONAMES=(${REPO:-${REPONAMES[@]}})
 PTITLES=(${REPO:-${REPONAMES[@]}})
 KEYWORDS=(${KEY:-${KEYWORDS[@]}})

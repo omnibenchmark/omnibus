@@ -118,7 +118,6 @@ NAMESPACE_ID=${NAMESPACE_ID:-false}
 GROUPNAME=${GROUPNAME:-false}
 
 
-
 ## creating a (public) repo via API ######################################################
 
 if [[ $NAMESPACE_ID = false ]]; then
