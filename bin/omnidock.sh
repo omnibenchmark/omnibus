@@ -16,7 +16,7 @@ usage(){
     echo " -gu   gitlab username"
     echo " -ge   gitlab email"
     echo " -t    Personal Access Token"
-    exho " -p    Pull only (does not use docker)"
+    exho " -c    Clone only (does not use docker)"
     echo ""
 }
 
@@ -41,7 +41,7 @@ while [ "$1" != "" ]; do
         -t)       shift
                                token=$1
                                ;;
-        -p) PULL=false
+        -c) CLONE=true
                                ;;
         -h | --help )          usage
                                exit
@@ -53,7 +53,7 @@ while [ "$1" != "" ]; do
 done
 
 
-if [[ $PULL = false ]]; then
+if [[ $CLONE = false ]]; then
     ## docker pull the generated image (the id is the first 7chars of the last git commit pushed to gitlab)  ##
 
     docker login registry.renkulab.io -u "$GLUSERNAME" -p "$token"

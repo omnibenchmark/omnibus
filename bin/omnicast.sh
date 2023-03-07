@@ -150,11 +150,13 @@ git switch -c main
 renku init  --template-source "${TEMSOURCE}" \
       --template-ref "${TEMREF}" \
       --template-id "${TEMID}" \
+      --parameter "benchmark_name"="${BENCHMARK}" \
       --parameter "metric_keyword"="${KEYWORD}" \
       --parameter "project_title"="${TITLE}" \
       --parameter "dataset_keyword"="${KEYWORD}" \
       --parameter "parameter_keyword"="${KEYWORD}" \
       --parameter "method_keyword"="${KEYWORD}" \
+      --parameter "processed_keyword"="${KEYWORD}" \
       --parameter "sanitized_project_name"="${SANITIZED_REPO}" \
       --parameter "metadata_description"="Metadata Description" \
       --parameter "study_link"="" \

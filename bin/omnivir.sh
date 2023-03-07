@@ -67,6 +67,6 @@ source ~/virtenvs/omb/bin/activate
 
 cat "Exit environment with command 'deactivate'"
 cat "Reactivate with command 'source ~/virtenvs/omb/bin/activate'"
-cat "Run 'omnivir -a' to print the activation command"
+cat "Run './bin/omnivir.sh -a' to print the activation command"
 
 

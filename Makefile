@@ -1,7 +1,7 @@
-# Makefile for omniformer
+# Makefile for omnibus
 
 INSTALL_DIR=/usr/local/bin
-SCRIPTS=omnicaster omnispawn omnivir omnidock
+SCRIPTS=omnibus omnicast omnidock
 SCRIPTS_DIR=bin
 
 .PHONY: install uninstall
@@ -19,14 +19,11 @@ uninstall:
             echo "Uninstalled $$script" ; \
         done
 
-omnicaster:
-	@$(INSTALL_DIR)/omnicaster.sh
+omnibus:
+	@$(INSTALL_DIR)/omnibus.sh
 
-omnispawn:
-	@$(INSTALL_DIR)/omnispawn.sh
-
-omnivir:
-	@$(INSTALL_DIR)/omnivir.sh
+omnicast:
+	@$(INSTALL_DIR)/omnicast.sh
 
 omnidock:
 	@$(INSTALL_DIR)/omnidock.sh

@@ -1,28 +1,27 @@
-# Create your omnibenchmark from the terminal
+# Omnibus: Create and extend your omnibenchmark from the terminal
 
 
-Here, we provide you the functionality for creating and adjusting your benchmark.
-
-## Install omnicaster
+## Install omnibus
 
 ```sh
-git pull https://github.com/shdam/omnicaster.git
+git pull https://github.com/shdam/omnibus.git
 
-cd omnicaster
+cd omnibus
 
 make install
 ```
 
 ## Set up a virtual environment (optional)
 
+
 ```sh
-omnivir
+./bin/omnivir.sh
 ```
 This will create three folders in your `~/` directory called `virtenvs`, `soft`, and `omb`.
 `~/virtenvs` will store the virtual environment.
 `~/soft` will store `Python-3.9.2`.
 `~/omb` is meant to store your benchmarks.
-The `omnicaster` dependencies will be installed in the virtual environment.
+The `omnibus` dependencies will be installed in the virtual environment.
 
 ## Define benchmark structure
 
@@ -30,13 +29,14 @@ Create a new `config` file based on `config_template`.
 Specificy each parameter according to the instructions in the file.
 
 It is recommended to create a new group or subgroup on GitLab to store your benchmark projects on. Otherwise, comment out `NAMESPACE_ID` and `GROUPNAME` to create it on your own profile.
+If you are creating the benchmark in a subgroup, the `GROUPNAME` should include all parent groupnames. E.g., `"Mygroup/Mysubgroup"`.
 
 An R function is provided that lets you create the config file from R:
 
 ```r
 
 # Requirements: install.packages("readr")
-source("create_config.R")
+source("R/create_config.R")
 
 create_config(
 	benchmark = "Your_benchmark",
@@ -48,7 +48,7 @@ create_config(
 	... # Add any config parameter setting (does not work with BENCHMARK, REPONAMES,
 	# KEYWORDS, or TEMPLATES). Names must match the names from the template.
 	)
-# The config file will be called "config_<benchmark>"
+# If you don't specific the config name, it will be called "config_<benchmark>".
 
 ```
 
@@ -58,7 +58,7 @@ Create your brand new benchmark by running
 
 ```sh
 
-omnicaster -o -p -c CONFIGFILE
+omnibus -o -p -c CONFIGFILE
 
 ```
 
@@ -71,7 +71,7 @@ Create a new config file based on the one you made previously. Edit the list par
 
 ```sh
 
-omnicaster -c CONFIGFILE
+omnibus -c CONFIGFILE
 
 ```
 
@@ -88,8 +88,10 @@ Example usage:
 omnidock -r REPONAME -g GROUPNAME -i IMAGEID -gu "USER.NAME" -ge "EMAIL" -t TOKEN
 ```
 
-OBS: You may use `omnidock` outside docker by using the `-p` flag:
+OBS: You may use `omnidock` outside docker by using the `-c` flag:
+This will simply clone the repository to your current directory instead of launching a docker instance.
+
 ```sh
-omnidock -p -r REPONAME -g GROUPNAME -gu "USER.NAME" -ge "EMAIL" -t TOKEN
+omnidock -c -r REPONAME -g GROUPNAME -gu "USER.NAME" -ge "EMAIL" -t TOKEN
 ```
 
