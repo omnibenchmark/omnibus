@@ -167,8 +167,8 @@ renku init  --template-source "${TEMSOURCE}" \
       --parameter "metadata_description"="Metadata Description" \
       --parameter "study_link"="" \
       --parameter "study_note"="" \
-      --parameter "study_tissue"=""
-      #--parameter "benchmark_name"="${BENCHMARK}" \
+      --parameter "study_tissue"="" \
+      --parameter "benchmark_name"="${BENCHMARK}"
 
 
 ## Push to remote to trigger a docker image generation via CI/CD
