@@ -16,8 +16,8 @@ TEMPLATES=("omni-data-py" "omni-method-py" "omni-metric-py") # List
 TEMSOURCE="https://github.com/omnibenchmark/contributed-project-templates"
 TEMREF="CLI_main"
 VISIBILITY="public"
-GLUSERNAME="Søren Helweg Dam"
-USEREMAIL="soren.helweg@gmail.com"
+GLUSERNAME="Your.Name"
+USEREMAIL="Your.Name@email.com"
 token="glpat-blabla"
 
 

@@ -12,6 +12,7 @@ usage(){
     echo " -c   	config file"
     echo " -p   	Create parameters project"
     echo " -o   	Create Orchestrator"
+    echo " -s		Create Summary"
     echo " -t		Personal Access Token with API permissions (overwrites the config token, if one was given there)"
     echo " -r		Name of single repository to create"
     echo " -k		Name of keyword for single repository"
@@ -28,8 +29,14 @@ while [ "$1" != "" ]; do
                                	;;
         -p) PARAMETERS=true
                               	;;
+        -s) SUMMARY=true
+                              	;;
         -op) ORCHESTRATOR=true
 			 PARAMETERS=true
+                              	;;
+        -ops) ORCHESTRATOR=true
+			  PARAMETERS=true
+			  SUMMARY=true
                               	;;
 		-t)           			shift
                                	TOKEN="$1"
@@ -112,6 +119,26 @@ if [ $PARAMETERS ]; then
 		-tb "CLI_main" \
 		-k "parameters" \
 		-pt "parameters"
+fi
+
+# Build Summary
+
+if [ $SUMMARY ]; then
+	omnicast \
+		-r "${BENCHMARK}_summary" \
+		-bm "${BENCHMARK}" \
+		-d "${DIR}" \
+		-ns "${NAMESPACE_ID}" \
+		-u "${GLUSERNAME}" \
+		-e "${USEREMAIL}" \
+		-v "${VISIBILITY}" \
+		-g "${GROUPNAME}" \
+		-t "${token}" \
+		-ti "metric_summary" \
+		-ts "${TEMSOURCE}" \
+		-tb "CLI_dev" \
+		-k "${BENCHMARK}_summary" \
+		-pt "${BENCHMARK}_summary"
 fi
 
 # Build manually defined projects

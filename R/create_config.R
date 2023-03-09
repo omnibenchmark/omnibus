@@ -134,34 +134,30 @@ create_config <- function(
     
     # Write the config file
     # 
-    readr::write_file(
-      paste(
-          "#!/bin/bash",
-          paste("# Configuration of", benchmark),
-          "# ",
-          "# ",
-          paste0('BENCHMARK="', benchmark, '"'),
-          paste0('NAMESPACE_ID="', NAMESPACE_ID),
-          paste0('GROUPNAME="',GROUPNAME),
-          paste0('DIR="',DIR),
-          REPONAMES,
-          paste0('PTITLES="', PTITLES),
-          KEYWORDS,
-          TEMPLATES,
-          paste0('TEMSOURCE="', TEMSOURCE),
-          paste0('TEMREF="', TEMREF),
-          paste0('VISIBILITY="', VISIBILITY),
-          paste0('GLUSERNAME="', GLUSERNAME),
-          paste0('USEREMAIL="', USEREMAIL),
-          paste0('token="', token),
-          explainer_message,
-          sep ='\n'
-          ),
-      file = config
-      )
-    # cat(content)
-    # system(paste("cat", content, ">", paste0('config_', benchmark)))
+    cat(
+        "#!/bin/bash",
+        paste("# Configuration of", benchmark),
+        "# ",
+        "# ",
+        paste0('BENCHMARK="', benchmark, '"'),
+        paste0('NAMESPACE_ID="', NAMESPACE_ID),
+        paste0('GROUPNAME="',GROUPNAME),
+        paste0('DIR="',DIR),
+        REPONAMES,
+        paste0('PTITLES="', PTITLES),
+        KEYWORDS,
+        TEMPLATES,
+        paste0('TEMSOURCE="', TEMSOURCE),
+        paste0('TEMREF="', TEMREF),
+        paste0('VISIBILITY="', VISIBILITY),
+        paste0('GLUSERNAME="', GLUSERNAME),
+        paste0('USEREMAIL="', USEREMAIL),
+        paste0('token="', token),
+        explainer_message,
+        sep ='\n',
+        file = config
+        )
     
-    cat("Config stored at '", getwd(), config, "' Make sure to edit the config where indicated", sep = "")
+    cat("Config stored at '", getwd(), "/", config, "' Make sure to edit the config where indicated", sep = "")
     
 }

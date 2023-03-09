@@ -1,21 +1,44 @@
 # Omnibus: Create and extend your omnibenchmark from the terminal
 
-
 ## Install omnibus
 
+Install omnibus locally, with docker, or in a virtual environment
+
+
+### Install omnibus locally
+
 ```sh
-git pull https://github.com/shdam/omnibus.git
+git clone https://github.com/shdam/omnibus.git
 
 cd omnibus
 
 make install
 ```
 
-## Set up a virtual environment (optional)
+### Build docker image
+
+```sh
+git clone https://github.com/shdam/omnibus.git
+
+cd omnibus
+
+docker build -t omnibus .
+
+
+# Run the docker image
+
+docker run -it omnibus:latest /bin/bash
+```
+
+### Virtual environment
 
 
 ```sh
-./bin/omnivir.sh
+git clone https://github.com/shdam/omnibus.git
+
+cd omnibus
+
+bash bin/omnivir.sh
 ```
 This will create three folders in your `~/` directory called `virtenvs`, `soft`, and `omb`.
 `~/virtenvs` will store the virtual environment.
@@ -34,8 +57,6 @@ If you are creating the benchmark in a subgroup, the `GROUPNAME` should include 
 An R function is provided that lets you create the config file from R:
 
 ```r
-
-# Requirements: install.packages("readr")
 source("R/create_config.R")
 
 create_config(
@@ -58,11 +79,11 @@ Create your brand new benchmark by running
 
 ```sh
 
-omnibus -o -p -c CONFIGFILE
+omnibus -o -p -s -c CONFIGFILE
 
 ```
 
-The `-o` and `-p` flags are used to create the `orchestrator` and `parameter` projects.
+The `-o`, `-p`, and `-s` flags are used to create the `orchestrator`, `parameters`, and `summary` projects, respectively.
 
 
 ## Add new projects to your existing benchmark
