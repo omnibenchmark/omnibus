@@ -85,6 +85,16 @@ omnibus -c CONFIGFILE -r REPONAME -k KEYWORD -tp TEMPLATE
 
 This will overwrite the REPONAMES, KEYWORDS, TEMPLATES, and PTITLES given in the config file, so the same config file can be used unedited.
 
+It is possible to add multiple projects this way, using the following command:
+
+```sh
+
+omnibus -c CONFIGFILE -r "REPONAME1 REPONAME2" -k "KEYWORD1 KEYWORD2" -tp "TEMPLATE1 TEMPLATE2"
+
+```
+If you `source CONFIGFILE` first, you can reference variables defined in it when creating projects this way. To give an example, `KEYWORD1` could be `${BENCHMARK}_method`.
+
+
 ## Run a project in docker
 
 This will pull and run a docker container based on an image from a specific project.
