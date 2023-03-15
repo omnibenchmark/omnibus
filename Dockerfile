@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM ubuntu:22.04
 
 # Update and install packages
 ENV DEBIAN_FRONTEND=noninteractive

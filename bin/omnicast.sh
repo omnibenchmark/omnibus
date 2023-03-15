@@ -166,6 +166,7 @@ renku init \
     --parameter "parameter_keyword"="${KEYWORD}" \
     --parameter "method_keyword"="${KEYWORD}" \
     --parameter "processed_keyword"="${KEYWORD}" \
+    --parameter "summary_keyword"="${KEYWORD}" \
     --parameter "sanitized_project_name"="${SANITIZED_REPO}" \
     --parameter "metadata_description"="Metadata Description" \
     --parameter "study_link"="" \
@@ -184,6 +185,7 @@ PROJECT_ID=$(curl --header "Authorization: Bearer ${token}" \
 curl --location --header "private-token: ${token}" \
     --request POST "https://renkulab.io/api/projects/${PROJECT_ID}/graph/webhooks"
 
+echo ""
 echo "Project created at: https://renkulab.io/gitlab/${NAMESPACE}/${REPONAME}"
 
 cd $WD
