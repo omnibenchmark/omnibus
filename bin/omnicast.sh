@@ -24,7 +24,6 @@ usage(){
     echo " -tb          Template branch"
     echo " -k           Keyword"
     echo " -pt          Project title"
-    echo " --ignore_kgi Ignore Renku Knowledge Graph Integration"
     echo ""
 }
 
@@ -73,8 +72,6 @@ while [ "$1" != "" ]; do
         -pt)       shift
                                TITLE=$1
                                ;;
-        --ignore_kgi) KGI=false
-                               ;;
         -h | --help )          usage
                                exit
                                ;;
@@ -107,8 +104,6 @@ echo "${TEMSOURCE}"
 echo "${TEMREF}"
 
 
-# Set default KGI
-KGI=${KGI:-true}
 
 # Edit working directory
 WD=$(pwd)
@@ -182,14 +177,12 @@ renku init \
 git push --set-upstream origin main
 
 ## Knowledge Graph Integration
-if [ ${KGI} ]; then
-    PROJECT_ID=$(curl --header "Authorization: Bearer ${token}" \
-        --request GET "https://renkulab.io/gitlab/api/v4/groups/${NAMESPACE_ID}/projects?search=${REPONAME}" \
-        | jq '.[0].id')
+PROJECT_ID=$(curl --header "Authorization: Bearer ${token}" \
+    --request GET "https://renkulab.io/gitlab/api/v4/groups/${NAMESPACE_ID}/projects?search=${REPONAME}" \
+    | jq '.[0].id')
 
-    curl --location --header "private-token: ${token}" \
-        --request POST "https://renkulab.io/api/projects/${PROJECT_ID}/graph/webhooks"
-fi
+curl --location --header "private-token: ${token}" \
+    --request POST "https://renkulab.io/api/projects/${PROJECT_ID}/graph/webhooks"
 
 echo "Project created at: https://renkulab.io/gitlab/${NAMESPACE}/${REPONAME}"
 
