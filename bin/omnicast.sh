@@ -10,21 +10,21 @@ usage(){
     echo "Usage: See the 'config_template' file for more details"
     echo ""
     echo "Params"
-    echo " -r    Reponame"
-    echo " -bm   Benchmark name"
-    echo " -d    Local repo location"
-    echo " -ns   namespace id"
-    echo " -u   gitlab username"
-    echo " -e   gitlab email"
-    echo " -v    visibility"
-    echo " -g    groupname"
-    echo " -t    Personal Access Token"
-    echo " -ti   template ID"
-    echo " -ts   Template source"
-    echo " -tb   Template branch"
-    echo " -k    Keyword"
-    echo " -pt   Project title"
-    echo " -ignore_kgi  Ignore Renku Knowledge Graph Integration"
+    echo " -r           Reponame"
+    echo " -bm          Benchmark name"
+    echo " -d           Local repo location"
+    echo " -ns          namespace id"
+    echo " -u           gitlab username"
+    echo " -e           gitlab email"
+    echo " -v           visibility"
+    echo " -g           groupname"
+    echo " --token      Personal Access Token"
+    echo " -ti          template ID"
+    echo " -ts          Template source"
+    echo " -tb          Template branch"
+    echo " -k           Keyword"
+    echo " -pt          Project title"
+    echo " --ignore_kgi Ignore Renku Knowledge Graph Integration"
     echo ""
 }
 
@@ -55,7 +55,7 @@ while [ "$1" != "" ]; do
         -g)       shift
                                GROUPNAME=$1
                                ;;
-        -t)       shift
+        --token)   shift
                                token=$1
                                ;;
         -ti)       shift
@@ -73,7 +73,7 @@ while [ "$1" != "" ]; do
         -pt)       shift
                                TITLE=$1
                                ;;
-        -ignore_kgi) KGI=false
+        --ignore_kgi) KGI=false
                                ;;
         -h | --help )          usage
                                exit

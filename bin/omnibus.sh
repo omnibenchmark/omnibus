@@ -6,18 +6,18 @@
 
 usage(){
     echo ""
-    echo "Usage: bash ""$(basename "$0")"" -o -p -c CONFIGFILE"
+    echo "Usage: bash ""$(basename "$0")"" -o -p -s -c CONFIGFILE"
     echo ""
     echo "Params"
-    echo " -c   	config file"
-    echo " -p   	Create parameters project"
-    echo " -o   	Create Orchestrator"
-    echo " -s		Create Summary"
-    echo " -t		Personal Access Token with API permissions (overwrites the config token, if one was given there)"
-    echo " -r		Name of single repository to create"
-    echo " -k		Name of keyword for single repository"
-    echo " -tp		Name of template to use for single repository"
-    echo " -ignore_kgi  Ignore Renku Knowledge Graph Integration"
+    echo " -c   		Config file"
+    echo " -p   		Create parameters project"
+    echo " -o   		Create Orchestrator"
+    echo " -s			Create Summary"
+    echo " --token		Personal Access Token with API permissions"
+    echo " -r			Name of single repository to create"
+    echo " -k			Name of keyword for single repository"
+    echo " -t			Name of template to use for single repository"
+    echo " --ignore_kgi	Ignore Renku Knowledge Graph Integration"
     echo ""
 }
 
@@ -39,7 +39,7 @@ while [ "$1" != "" ]; do
 			  PARAMETERS=true
 			  SUMMARY=true
                               	;;
-		-t)           			shift
+		--token)           			shift
                                	TOKEN="$1"
                                	;;
 		-r)           			shift
@@ -48,11 +48,11 @@ while [ "$1" != "" ]; do
 		-k)           			shift
                                	KEY="$1"
                                	;;
-		-tp)           			shift
+		-t)           			shift
                                	TEMP="$1"
                                	;;
-        -ignore_kgi) KGI=false
-                               ;;
+        --ignore_kgi) KGI=false
+                                ;;
         -h | --help )          	usage
                                	exit
                                	;;
@@ -100,13 +100,13 @@ if [ $ORCHESTRATOR ]; then
 		-e "${USEREMAIL}" \
 		-v "${VISIBILITY}" \
 		-g "${GROUPNAME}" \
-		-t "${token}" \
+		--token "${token}" \
 		-ti "orchestrator" \
 		-ts "${TEMSOURCE}" \
 		-tb "CLI_dev" \
 		-k "orchestrator" \
 		-pt "orchestrator" \
-		-ignore_kgi ${KGI}
+		--ignore_kgi "${KGI}"
 fi
 
 # Build Parameters
@@ -121,13 +121,13 @@ if [ $PARAMETERS ]; then
 		-e "${USEREMAIL}" \
 		-v "${VISIBILITY}" \
 		-g "${GROUPNAME}" \
-		-t "${token}" \
+		--token "${token}" \
 		-ti "omni-param-py" \
 		-ts "${TEMSOURCE}" \
 		-tb "CLI_main" \
 		-k "parameters" \
 		-pt "parameters" \
-		-ignore_kgi ${KGI}
+		--ignore_kgi "${KGI}"
 fi
 
 # Build Summary
@@ -142,13 +142,13 @@ if [ $SUMMARY ]; then
 		-e "${USEREMAIL}" \
 		-v "${VISIBILITY}" \
 		-g "${GROUPNAME}" \
-		-t "${token}" \
+		--token "${token}" \
 		-ti "metric_summary" \
 		-ts "${TEMSOURCE}" \
 		-tb "CLI_dev" \
 		-k "${BENCHMARK}_summary" \
 		-pt "${BENCHMARK}_summary" \
-		-ignore_kgi ${KGI}
+		--ignore_kgi "${KGI}"
 fi
 
 # Build manually defined projects
@@ -163,11 +163,11 @@ for (( i = 0; i <${#REPONAMES[@]}; i++ )); do
 		-e "${USEREMAIL}" \
 		-v "${VISIBILITY}" \
 		-g "${GROUPNAME}" \
-		-t "${token}" \
+		--token "${token}" \
 		-ti "${TEMPLATES[$i]}" \
 		-ts "${TEMSOURCE}" \
 		-tb "${TEMREF}" \
 		-k "${KEYWORDS[$i]}" \
 		-pt "${PTITLES[$i]}" \
-		-ignore_kgi ${KGI}
+		--ignore_kgi "${KGI}"
 done
