@@ -17,6 +17,7 @@ usage(){
     echo " -r		Name of single repository to create"
     echo " -k		Name of keyword for single repository"
     echo " -tp		Name of template to use for single repository"
+    echo " -ignore_kgi  Ignore Renku Knowledge Graph Integration"
     echo ""
 }
 
@@ -50,6 +51,8 @@ while [ "$1" != "" ]; do
 		-tp)           			shift
                                	TEMP="$1"
                                	;;
+        -ignore_kgi) KGI=false
+                               ;;
         -h | --help )          	usage
                                	exit
                                	;;
@@ -62,6 +65,9 @@ done
 # Load configuration settings
 source $CONFIG
 
+# Set default KGI
+KGI=${KGI:-true}
+
 # Overwrite config vars for those given as input
 token=${TOKEN:-$token}
 REPONAMES=(${REPO:-${REPONAMES[@]}})
@@ -71,6 +77,7 @@ TEMPLATES=(${TEMP:-${TEMPLATES[@]}})
 
 # Error checks
 
+## All lists have equal length
 if [ "${#REPONAMES[@]}" -ne "${#TEMPLATES[@]}" ] || [ "${#TEMPLATES[@]}" -ne "${#KEYWORDS[@]}" ] || [ "${#KEYWORDS[@]}" -ne "${#PTITLES[@]}" ]; then
 	echo "Please make sure all lists have the same lengths."
 	echo "KEYWORDS: ${KEYWORDS[@]}"
@@ -98,7 +105,8 @@ if [ $ORCHESTRATOR ]; then
 		-ts "${TEMSOURCE}" \
 		-tb "CLI_dev" \
 		-k "orchestrator" \
-		-pt "orchestrator"
+		-pt "orchestrator" \
+		-ignore_kgi ${KGI}
 fi
 
 # Build Parameters
@@ -118,7 +126,8 @@ if [ $PARAMETERS ]; then
 		-ts "${TEMSOURCE}" \
 		-tb "CLI_main" \
 		-k "parameters" \
-		-pt "parameters"
+		-pt "parameters" \
+		-ignore_kgi ${KGI}
 fi
 
 # Build Summary
@@ -138,7 +147,8 @@ if [ $SUMMARY ]; then
 		-ts "${TEMSOURCE}" \
 		-tb "CLI_dev" \
 		-k "${BENCHMARK}_summary" \
-		-pt "${BENCHMARK}_summary"
+		-pt "${BENCHMARK}_summary" \
+		-ignore_kgi ${KGI}
 fi
 
 # Build manually defined projects
@@ -158,5 +168,6 @@ for (( i = 0; i <${#REPONAMES[@]}; i++ )); do
 		-ts "${TEMSOURCE}" \
 		-tb "${TEMREF}" \
 		-k "${KEYWORDS[$i]}" \
-		-pt "${PTITLES[$i]}"
+		-pt "${PTITLES[$i]}" \
+		-ignore_kgi ${KGI}
 done

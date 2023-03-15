@@ -37,11 +37,13 @@ create_config <- function(
                    paste(used_args, collapse = ", ")))
     }
     
-    if(is.null(config)) config <- paste0('config_', benchmark)
+    # Add default config name, if none given
+    if(is.null(config)) config <- paste0('configs/config_', benchmark)
     
     REPONAMES <- "REPONAMES=("
     KEYWORDS <- "KEYWORDS=("
     TEMPLATES <- "TEMPLATES=("
+
     # Datasets
     if(!is.null(datasets) | !is.null(datanames)) {
         if(is.null(datasets)) {datasets <- length(datanames)}
@@ -57,6 +59,7 @@ create_config <- function(
         TEMPLATES <- paste0(TEMPLATES,
                            paste0(rep('"omni-data-py', datasets), '"', collapse = ' '))
     }
+
     # Methods
     if(!is.null(methods) | !is.null(methodnames)) {
         if(is.null(methods)) {methods <- length(methodnames)}
@@ -71,6 +74,7 @@ create_config <- function(
         TEMPLATES <- paste0(TEMPLATES, " ",
                            paste0(rep('"omni-method-py', methods), '"', collapse = ' '))
     }
+    
     # Metrics
     if(!is.null(metrics) | !is.null(metricnames)) {
         if(is.null(metrics)) {metrics <- length(metricnames)}
@@ -158,6 +162,6 @@ create_config <- function(
         file = config
         )
     
-    cat("Config stored at '", getwd(), "/", config, "' Make sure to edit the config where indicated", sep = "")
+    cat("Config stored at '", getwd(), "/", config, "' Make sure to edit the config where indicated\n", sep = "")
     
 }

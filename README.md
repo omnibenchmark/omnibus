@@ -9,9 +9,7 @@ Install omnibus locally, with docker, or in a virtual environment
 
 ```sh
 git clone https://github.com/shdam/omnibus.git
-
 cd omnibus
-
 make install
 ```
 
@@ -19,32 +17,26 @@ make install
 
 ```sh
 git clone https://github.com/shdam/omnibus.git
-
 cd omnibus
-
 docker build -t omnibus .
 
-
 # Run the docker image
-
 docker run -it omnibus:latest /bin/bash
 ```
 
 ### Virtual environment
 
-
-```sh
-git clone https://github.com/shdam/omnibus.git
-
-cd omnibus
-
-bash bin/omnivir.sh
-```
 This will create three folders in your `~/` directory called `virtenvs`, `soft`, and `omb`.
 `~/virtenvs` will store the virtual environment.
 `~/soft` will store `Python-3.9.2`.
 `~/omb` is meant to store your benchmarks.
 The `omnibus` dependencies will be installed in the virtual environment.
+
+```sh
+git clone https://github.com/shdam/omnibus.git
+cd omnibus
+bash bin/omnivir.sh
+```
 
 ## Define benchmark structure
 

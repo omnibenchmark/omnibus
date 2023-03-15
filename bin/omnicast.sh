@@ -24,6 +24,7 @@ usage(){
     echo " -tb   Template branch"
     echo " -k    Keyword"
     echo " -pt   Project title"
+    echo " -ignore_kgi  Ignore Renku Knowledge Graph Integration"
     echo ""
 }
 
@@ -72,6 +73,8 @@ while [ "$1" != "" ]; do
         -pt)       shift
                                TITLE=$1
                                ;;
+        -ignore_kgi) KGI=false
+                               ;;
         -h | --help )          usage
                                exit
                                ;;
@@ -104,6 +107,8 @@ echo "${TEMSOURCE}"
 echo "${TEMREF}"
 
 
+# Set default KGI
+KGI=${KGI:-true}
 
 # Edit working directory
 WD=$(pwd)
@@ -122,9 +127,9 @@ GROUPNAME=${GROUPNAME:-false}
 
 if [[ $NAMESPACE_ID = false ]]; then
     NAMESPACE="${GLUSERNAME}"
-    curl --header "Authorization: Bearer ${token}" \
+    response=$(curl --header "Authorization: Bearer ${token}" \
          --request POST \
-         "https://renkulab.io/gitlab/api/v4/projects/?name=${REPONAME}&visibility=${VISIBILITY}"
+         "https://renkulab.io/gitlab/api/v4/projects/?name=${REPONAME}&visibility=${VISIBILITY}")
 
 else
     NAMESPACE="${GROUPNAME}"
@@ -134,11 +139,12 @@ else
 
 fi
 
-if echo "$response" | grep -q '401'; then
+if [ echo "$response" | grep -q '401' ]; then
     echo "Authorization error: 401"
     echo "Please check your token permissions."
     exit 1
 fi
+
 
 
 ## cloning the new (empty) repo  ################################################
@@ -154,25 +160,36 @@ git switch -c main
 
 ## renkufy the repo using an omnibenchmark template ###########################
 
-renku init  --template-source "${TEMSOURCE}" \
-      --template-ref "${TEMREF}" \
-      --template-id "${TEMID}" \
-      --parameter "metric_keyword"="${KEYWORD}" \
-      --parameter "project_title"="${TITLE}" \
-      --parameter "dataset_keyword"="${KEYWORD}" \
-      --parameter "parameter_keyword"="${KEYWORD}" \
-      --parameter "method_keyword"="${KEYWORD}" \
-      --parameter "processed_keyword"="${KEYWORD}" \
-      --parameter "sanitized_project_name"="${SANITIZED_REPO}" \
-      --parameter "metadata_description"="Metadata Description" \
-      --parameter "study_link"="" \
-      --parameter "study_note"="" \
-      --parameter "study_tissue"="" \
-      --parameter "benchmark_name"="${BENCHMARK}"
-
+renku init \
+    --template-source "${TEMSOURCE}" \
+    --template-ref "${TEMREF}" \
+    --template-id "${TEMID}" \
+    --description "${TITLE}" \
+    --parameter "metric_keyword"="${KEYWORD}" \
+    --parameter "project_title"="${TITLE}" \
+    --parameter "dataset_keyword"="${KEYWORD}" \
+    --parameter "parameter_keyword"="${KEYWORD}" \
+    --parameter "method_keyword"="${KEYWORD}" \
+    --parameter "processed_keyword"="${KEYWORD}" \
+    --parameter "sanitized_project_name"="${SANITIZED_REPO}" \
+    --parameter "metadata_description"="Metadata Description" \
+    --parameter "study_link"="" \
+    --parameter "study_note"="" \
+    --parameter "study_tissue"="" \
+    --parameter "benchmark_name"="${BENCHMARK}"
 
 ## Push to remote to trigger a docker image generation via CI/CD
 git push --set-upstream origin main
+
+## Knowledge Graph Integration
+if [ ${KGI} ]; then
+    PROJECT_ID=$(curl --header "Authorization: Bearer ${token}" \
+        --request GET "https://renkulab.io/gitlab/api/v4/groups/${NAMESPACE_ID}/projects?search=${REPONAME}" \
+        | jq '.[0].id')
+
+    curl --location --header "private-token: ${token}" \
+        --request POST "https://renkulab.io/api/projects/${PROJECT_ID}/graph/webhooks"
+fi
 
 echo "Project created at: https://renkulab.io/gitlab/${NAMESPACE}/${REPONAME}"
 

@@ -9,7 +9,9 @@ RUN apt-get update && apt-get install -y \
     vim \
     make \
     libssl-dev libbz2-dev libncurses5-dev  libreadline-dev libgdbm-dev libnss3-dev libffi-dev libsqlite3-dev \
-    r-base
+    r-base \
+    git-lfs \
+    jq
 
 
 # Install omnibus
