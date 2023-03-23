@@ -72,7 +72,7 @@ TEMPLATES=(${TEMP:-${TEMPLATES[@]}})
 # Error checks
 
 ## All lists have equal length
-if [ "${#REPONAMES[@]}" -ne "${#TEMPLATES[@]}" ] || [ "${#TEMPLATES[@]}" -ne "${#KEYWORDS[@]}" ] || [ "${#KEYWORDS[@]}" -ne "${#PTITLES[@]}" ]; then
+if [ "${#REPONAMES[@]}" -ne "${#TEMPLATES[@]}" ] || [ "${#TEMPLATES[@]}" -ne "${#KEYWORDS[@]}" ] || [ "${#KEYWORDS[@]}" -ne "${#PTITLES[@]}" ] && [ "${REPONAMES}" -ne "skip" ]; then
 	echo "Please make sure all lists have the same lengths."
 	echo "KEYWORDS: ${KEYWORDS[@]}"
 	echo "REPONAMES: ${REPONAMES[@]}"
