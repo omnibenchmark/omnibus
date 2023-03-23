@@ -143,6 +143,9 @@ if [ $SUMMARY ]; then
 fi
 
 # Build manually defined projects
+if [ "${REPONAMES}" -eq "skip" ]; then
+	exit 1
+fi
 
 for (( i = 0; i <${#REPONAMES[@]}; i++ )); do
 	omnicast \

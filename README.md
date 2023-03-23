@@ -2,18 +2,10 @@
 
 ## Install omnibus
 
-Install omnibus locally, with docker, or in a virtual environment
+Install omnibus in a docker image, locally, or in a virtual environment
 
 
-### Install omnibus locally
-
-```sh
-git clone https://github.com/shdam/omnibus.git
-cd omnibus
-make install
-```
-
-### Build docker image
+### Build docker image (Recommended)
 
 ```sh
 git clone https://github.com/shdam/omnibus.git
@@ -22,6 +14,14 @@ docker build -t omnibus .
 
 # Run the docker image
 docker run -it omnibus:latest /bin/bash
+```
+
+### Install omnibus locally
+
+```sh
+git clone https://github.com/shdam/omnibus.git
+cd omnibus
+make install
 ```
 
 ### Virtual environment
@@ -80,15 +80,7 @@ The `-o`, `-p`, and `-s` flags are used to create the `orchestrator`, `parameter
 
 ## Add new projects to your existing benchmark
 
-Create a new config file based on the one you made previously. Edit the list parameters (REPONAMES, KEYWORDS, TEMPLATES, and PTITLES) to only contain the new project configurations, leave the rest as they were. This time exclude the `-o` and `-p` flags:
-
-```sh
-
-omnibus -c CONFIGFILE
-
-```
-
-Alternatively, this can be done by specifying the new reponame, keyword, and template directly in the function call:
+Rerun the `omnibus` command, omitting the `-o`, `-p`, and `-s` flags, but specifying the new reponame, keyword, and template directly in the function call:
 
 ```sh
 
@@ -98,7 +90,7 @@ omnibus -c CONFIGFILE -r REPONAME -k KEYWORD -t TEMPLATE
 
 This will overwrite the REPONAMES, KEYWORDS, TEMPLATES, and PTITLES given in the config file, so the same config file can be used unedited.
 
-It is possible to add multiple projects this way, using the following command:
+It is possible to add multiple projects this way, using the following command structure:
 
 ```sh
 
@@ -107,12 +99,22 @@ omnibus -c CONFIGFILE -r "REPONAME1 REPONAME2" -k "KEYWORD1 KEYWORD2" -t "TEMPLA
 ```
 If you `source CONFIGFILE` first, you can reference variables defined in it when creating projects this way. To give an example, `KEYWORD1` could be `${BENCHMARK}_method`.
 
+If you only want to build the orchestrator, parameters, and/or summary, set `-r skip` along with using the appropriate `-o`, `-p`, and `-s` flags.
+
+
+*Alternatively*, create a new config file based on the one you made previously. Edit the list parameters (REPONAMES, KEYWORDS, TEMPLATES, and PTITLES) to only contain the new project configurations, leave the rest as they were.
+
+```sh
+
+omnibus -c NEWCONFIGFILE
+
+```
 
 ## Run a project in docker
 
 This will pull and run a docker container based on an image from a specific project.
 
-First, you need to locate the image ID found under `Packages & Registries` > `Container Registry`. Copy the latest ID. Run `omnidock -h` for extra information.
+First, you need to locate the image ID found under `Packages & Registries` > `Container Registry`. Copy the latest ID. Run `omnidock -h` for additional information.
 
 Example usage:
 
@@ -121,7 +123,7 @@ omnidock -r REPONAME -g GROUPNAME -i IMAGEID -u "USER.NAME" -e "EMAIL" -t TOKEN
 ```
 
 OBS: You may use `omnidock` outside docker by using the `-c` flag:
-This will simply clone the repository to your current directory instead of launching a docker instance.
+This will simply clone the repository to your current directory instead of downloading and launching a docker instance.
 
 ```sh
 omnidock -c -r REPONAME -g GROUPNAME -u "USER.NAME" -e "EMAIL" -t TOKEN
