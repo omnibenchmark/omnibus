@@ -72,7 +72,7 @@ TEMPLATES=(${TEMP:-${TEMPLATES[@]}})
 # Error checks
 
 ## All lists have equal length
-if [ "${#REPONAMES[@]}" -ne "${#TEMPLATES[@]}" ] || [ "${#TEMPLATES[@]}" -ne "${#KEYWORDS[@]}" ] || [ "${#KEYWORDS[@]}" -ne "${#PTITLES[@]}" ] && [ "${REPONAMES}" -ne "skip" ]; then
+if [ "${#REPONAMES[@]}" -ne "${#TEMPLATES[@]}" ] || [ "${#TEMPLATES[@]}" -ne "${#KEYWORDS[@]}" ] || [ "${#KEYWORDS[@]}" -ne "${#PTITLES[@]}" ] && [ "${REPONAMES}" != "skip" ]; then
 	echo "Please make sure all lists have the same lengths."
 	echo "KEYWORDS: ${KEYWORDS[@]}"
 	echo "REPONAMES: ${REPONAMES[@]}"
@@ -143,7 +143,7 @@ if [ $SUMMARY ]; then
 fi
 
 # Build manually defined projects
-if [ "${REPONAMES}" -eq "skip" ]; then
+if [ "${REPONAMES}" == "skip" ]; then
 	exit 1
 fi
 
