@@ -134,7 +134,7 @@ else
 
 fi
 
-if [ echo "$response" | grep -q '401' ]; then
+if grep -q '401' <<< "${response}"; then
     echo "Authorization error: 401"
     echo "Please check your token permissions."
     exit 1
@@ -152,6 +152,7 @@ git config --local --add user.name "${GLUSERNAME}"
 git config --local --add user.email "${USEREMAIL}"
 git remote set-url origin https://oauth2:"${token}"@renkulab.io/gitlab/"${NAMESPACE}"/"${REPONAME}".git
 git switch -c main
+git config lfs.https://oauth2:"${token}"@renkulab.io/gitlab/"${NAMESPACE}"/"${REPONAME}".git/info/lfs.locksverify true
 
 ## renkufy the repo using an omnibenchmark template ###########################
 
