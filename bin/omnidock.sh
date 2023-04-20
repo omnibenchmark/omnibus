@@ -10,13 +10,13 @@ usage(){
     echo "Usage: See the 'config_template' file for more details"
     echo ""
     echo "Params"
-    echo " -r    Reponame"
-    echo " -g    Group name"
-    echo " -i    Image ID"
-    echo " -u    gitlab username"
-    echo " -e    gitlab email"
-    echo " -t    Personal Access Token"
-    echo " -c    Clone only (does not use docker)"
+    echo " -r       Reponame"
+    echo " -g       Group name"
+    echo " -i       Image ID"
+    echo " -u       gitlab username"
+    echo " -e       gitlab email"
+    echo " --token  Personal Access Token"
+    echo " -c       Clone only (does not use docker)"
     echo ""
 }
 
@@ -38,7 +38,7 @@ while [ "$1" != "" ]; do
         -e)       shift
                                USEREMAIL=$1
                                ;;
-        -t)       shift
+        --token)  shift
                                token=$1
                                ;;
         -c) CLONE=true
