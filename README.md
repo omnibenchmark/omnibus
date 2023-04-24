@@ -8,7 +8,7 @@ Install omnibus in a docker image or locally
 ### Build docker image (Recommended)
 
 ```sh
-git clone https://github.com/shdam/omnibus.git
+git clone https://github.com/omnibenchmark/omnibus.git
 cd omnibus
 docker build -t omnibus .
 
@@ -19,7 +19,7 @@ docker run -it omnibus:latest /bin/bash
 ### Install omnibus locally
 
 ```sh
-git clone https://github.com/shdam/omnibus.git
+git clone https://github.com/omnibenchmark/omnibus.git
 cd omnibus
 make install
 ```
