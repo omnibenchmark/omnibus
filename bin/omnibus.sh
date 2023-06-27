@@ -97,7 +97,7 @@ if [ $ORCHESTRATOR ]; then
 	--token "${token}" \
 	-ti "orchestrator" \
 	-ts "${TEMSOURCE}" \
-	-tb "CLI_dev" \
+	-tb "dev" \
 	-k "orchestrator" \
 	-pt "orchestrator"
 fi
@@ -137,7 +137,7 @@ if [ $SUMMARY ]; then
 		--token "${token}" \
 		-ti "metric_summary" \
 		-ts "${TEMSOURCE}" \
-		-tb "CLI_dev" \
+		-tb "dev" \
 		-k "${BENCHMARK}_summary" \
 		-pt "${BENCHMARK}_summary"
 fi
