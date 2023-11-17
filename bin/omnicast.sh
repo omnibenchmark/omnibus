@@ -124,13 +124,13 @@ if [[ $NAMESPACE_ID = false ]]; then
     NAMESPACE="${GLUSERNAME}"
     response=$(curl --header "Authorization: Bearer ${token}" \
          --request POST \
-         "https://renkulab.io/gitlab/api/v4/projects/?name=${REPONAME}&visibility=${VISIBILITY}")
+         "https://gitlab.renkulab.io/api/v4/projects/?name=${REPONAME}&visibility=${VISIBILITY}")
 
 else
     NAMESPACE="${GROUPNAME}"
     response=$(curl --header "Authorization: Bearer ${token}" \
          --request POST \
-         "https://renkulab.io/gitlab/api/v4/projects/?name=${REPONAME}&namespace_id=${NAMESPACE_ID}&visibility=${VISIBILITY}")
+         "https://gitlab.renkulab.io/api/v4/projects/?name=${REPONAME}&namespace_id=${NAMESPACE_ID}&visibility=${VISIBILITY}")
 
 fi
 
@@ -144,15 +144,15 @@ fi
 
 ## cloning the new (empty) repo  ################################################
 
-git clone https://oauth2:"${token}"@renkulab.io/gitlab/"${NAMESPACE}"/"${REPONAME}".git
+git clone https://oauth2:"${token}"@gitlab.renkulab.io/"${NAMESPACE}"/"${REPONAME}".git
 
 cd "${REPONAME}"
 
 git config --local --add user.name "${GLUSERNAME}"
 git config --local --add user.email "${USEREMAIL}"
-git remote set-url origin https://oauth2:"${token}"@renkulab.io/gitlab/"${NAMESPACE}"/"${REPONAME}".git
+git remote set-url origin https://oauth2:"${token}"@gitlab.renkulab.io/"${NAMESPACE}"/"${REPONAME}".git
 git switch -c main
-git config lfs.https://oauth2:"${token}"@renkulab.io/gitlab/"${NAMESPACE}"/"${REPONAME}".git/info/lfs.locksverify true
+git config lfs.https://oauth2:"${token}"@gitlab.renkulab.io/"${NAMESPACE}"/"${REPONAME}".git/info/lfs.locksverify true
 
 ## renkufy the repo using an omnibenchmark template ###########################
 
@@ -180,13 +180,13 @@ git push --set-upstream origin main
 
 ## Knowledge Graph Integration
 PROJECT_ID=$(curl --header "Authorization: Bearer ${token}" \
-    --request GET "https://renkulab.io/gitlab/api/v4/groups/${NAMESPACE_ID}/projects?search=${REPONAME}" \
+    --request GET "https://gitlab.renkulab.io/api/v4/groups/${NAMESPACE_ID}/projects?search=${REPONAME}" \
     | jq '.[0].id')
 
 curl --location --header "private-token: ${token}" \
     --request POST "https://renkulab.io/api/projects/${PROJECT_ID}/graph/webhooks"
 
 echo ""
-echo "Project created at: https://renkulab.io/gitlab/${NAMESPACE}/${REPONAME}"
+echo "Project created at: https://gitlab.renkulab.io/${NAMESPACE}/${REPONAME}"
 
 cd $WD

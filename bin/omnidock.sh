@@ -70,11 +70,11 @@ fi
 git config --global --add user.name "${GLUSERNAME}"
 git config --global --add user.email "${USEREMAIL}"
 
-git clone https://oauth2:"$token"@renkulab.io/gitlab/"$GROUPNAME"/"$REPONAME".git
+git clone https://oauth2:"$token"@gitlab.renkulab.io/"$GROUPNAME"/"$REPONAME".git
 
 cd $REPONAME
 
-git remote set-url origin https://oauth2:"$token"@renkulab.io/gitlab/"$GROUPNAME"/"$REPONAME".git
+git remote set-url origin https://oauth2:"$token"@gitlab.renkulab.io/"$GROUPNAME"/"$REPONAME".git
 
 git lfs install --local
 
